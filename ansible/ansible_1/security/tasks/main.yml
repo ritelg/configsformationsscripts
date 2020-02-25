@@ -1,0 +1,8 @@
+---
+- name: Security | Installations de ufw
+  apt:
+    name:
+      - ufw
+    state: present
+
+- include: ./ufw-task.yml

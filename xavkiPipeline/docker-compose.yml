@@ -1,0 +1,32 @@
+version: '3'
+services:
+  jenkins:
+    image: ritelg/jenkins:lts
+    container_name: "jenkins"
+    labels:
+      kompose.service.type: nodeport
+    environment:
+      JENKINS_HOME: /jenkins_home
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+      - '50000:50000'
+    volumes:
+      - '/srv/data/jenkins/jenkins_data:/jenkins_home'
+      - '/srv/data/jenkins/jenkins:/var/jenkins_config'
+#  gitlab:
+#    image: 'gitlab/gitlab-ce:latest'
+#    restart: always
+#    hostname: 'gitlab.ritelg.com'
+#    container_name: "gitlab"
+#    environment:
+#      GITLAB_OMNIBUS_CONFIG: |
+#        external_url 'https://gitlab.ritelg.com'
+#        # Add any other gitlab.rb configuration here, each on its own line
+#    ports:
+#      - '80:80'
+#      - '443:443'
+#    volumes:
+#      - '/srv/data/gitlab/config:/etc/gitlab'
+#      - '/srv/data/gitlab/logs:/var/log/gitlab'
+#      - '/srv/data/gitlab/data:/var/opt/gitlab'

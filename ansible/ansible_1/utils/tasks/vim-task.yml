@@ -1,0 +1,88 @@
+---
+- name: Configuration de vim pour root
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/vim/.vimrc
+    dest: ~/.vimrc
+
+- name: "Configuration de vim pour {{ user }}"
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/vim/.vimrc
+    dest: "/home/{{ user }}/.vimrc"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+- name: Creation du repertoire pour pathogen pour root
+  shell: mkdir -p ~/.vim/autoload ~/.vim/bundle
+
+- name: "Creation du repertoire pour pathogen pour {{ user }}"
+  shell: mkdir -p /home/gaetan-ritel/.vim/autoload /home/gaetan-ritel/.vim/bundle
+
+- name: Recuperation de pathogen pour root
+  get_url:
+    url: https://tpo.pe/pathogen.vim
+    dest: ~/.vim/autoload/pathogen.vim
+
+- name: "Recuperation de pathogen pour {{ user }}"
+  get_url:
+    url: https://tpo.pe/pathogen.vim
+    dest: "/home/{{ user }}/.vim/autoload/pathogen.vim"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+
+- name: Recuperation de nerdtree pour root
+  git:
+    repo: https://github.com/scrooloose/nerdtree.git
+    dest: ~/.vim/bundle/nerdtree
+- name : Recuperation de vim-airline pour root
+  git:
+    repo: https://github.com/vim-airline/vim-airline.git
+    dest: ~/.vim/bundle/vim-airline
+- name: Recuperation de syntastic pour root
+  git:
+    repo: https://github.com/vim-syntastic/syntastic.git
+    dest: ~/.vim/bundle/syntastic
+- name: Recuperation de tagbar pour root
+  git:
+    repo: https://github.com/majutsushi/tagbar.git
+    dest: ~/.vim/bundle/tagbar
+- name: Recuperation de emmet-vim pour root
+  git:
+    repo: https://github.com/mattn/emmet-vim.git
+    dest: ~/.vim/bundle/emmet-vim
+- name: Recuperation de ferret pour root
+  git:
+    repo: https://github.com/wincent/ferret.git
+    dest: ~/.vim/bundle/ferret
+
+
+- name: "Recuperation de nerdtree pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/scrooloose/nerdtree.git
+    dest: "/home/{{ user }}/.vim/bundle/nerdtree"
+- name : "Recuperation de vim-airline pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/vim-airline/vim-airline.git
+    dest: "/home/{{ user }}/.vim/bundle/vim-airline"
+- name: "Recuperation de syntastic pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/vim-syntastic/syntastic.git
+    dest: "/home/{{ user }}/.vim/bundle/syntastic"
+- name: "Recuperation de tagbar pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/majutsushi/tagbar.git
+    dest: "/home/{{ user }}/.vim/bundle/tagbar"
+- name: "Recuperation de emmet-vim pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/mattn/emmet-vim.git
+    dest: "/home/{{ user }}/.vim/bundle/emmet-vim"
+- name: "Recuperation de ferret pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/wincent/ferret.git
+    dest: "/home/{{ user }}/.vim/bundle/ferret"

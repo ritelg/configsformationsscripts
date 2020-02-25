@@ -1,0 +1,30 @@
+---
+
+- name: "Definie le hostname a {{ domain }}"
+  debconf: name=postifx question="postfix/mailname" value="{{domain}}" vtype="string"
+- name: Set Postfix option type as internet site
+  debconf: name=postfix question="postfix/main_mailer_type" value="'Internet Site'" vtype="string"
+- name: Mail | Installations de mailUtils, postfix
+  apt:
+    name:
+      - mailutils
+      - postfix
+    state: present
+
+- name: Met a jour la configuration de postfix
+  lineinfile:
+    dest: "{{ postfix_config_file }}"
+    line: "{{ item.name }} = {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+  with_items:
+    - name: inet_interfaces
+      value: "{{ postfix_inet_interfaces }}"
+    - name: inet_protocols
+      value: "{{ postfix_inet_protocols }}"
+  notify: restart postfix
+
+- name: "Lance le service et l'active"
+  service:
+    name: postfix
+    state: "{{ postfix_service_state }}"
+    enabled: "{{ postfix_service_enabled }}"

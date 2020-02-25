@@ -1,0 +1,5 @@
+[web]
+192.168.6.2
+
+[web:vars]
+user=gaetan-ritel

@@ -1,0 +1,8 @@
+[user]
+	email = ritelg@yahoo.fr
+	name = ritelg
+[core]
+	autocrlf = input
+	editor = vim
+[branch]
+	autosetuprebase = always

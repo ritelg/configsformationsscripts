@@ -1,0 +1,38 @@
+php_version: 7.2
+mysql_db: gaetan-ritel
+mysql_user: gaetan-ritel
+npm_globals:
+  - pm2
+user: gaetan-ritel
+key: '~/.ssh/id_rsa_universe.pub'
+domain: gaetan-ritel-1.fr
+user_home: '/home/{{ user }}'
+web_socket_port: 3000
+
+ansistrano_deploy_to: '{{ user_home }}/{{ domain }}'
+ansistrano_deploy_via: git
+ansistrano_git_repo: "{{ ansistrano_deploy_to }}.git"
+ansistrano_keep_releases: 5
+ansistrano_shared_paths: ["var"]
+ansistrano_shared_files: [".env"]
+
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/before_symlink.yml"
+ansistrano_after_symlink_shared_tasks_file: "{{ playbook_dir }}/tasks/after_symlink.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/tasks/end.yml"
+
+
+root_path: '{{ ansistrano_deploy_to }}/public'
+mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63333237623561343030303764303362626332313336666137333037396334623237333762643634
+          3633663632343731613262653764346331623734393761360a316565333433326239336237663131
+          64313538646139303165323263376332373234373161383739363931643733306162356137343564
+          6665643136643261610a663030616166353965363838393738626139363061303663636636396436
+          63633638623061313837323737333862643338376536363634323039383466353439
+mysql_root_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63333237623561343030303764303362626332313336666137333037396334623237333762643634
+          3633663632343731613262653764346331623734393761360a316565333433326239336237663131
+          64313538646139303165323263376332373234373161383739363931643733306162356137343564
+          6665643136643261610a663030616166353965363838393738626139363061303663636636396436
+          63633638623061313837323737333862643338376536363634323039383466353439

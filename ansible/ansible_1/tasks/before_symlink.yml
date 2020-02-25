@@ -1,0 +1,48 @@
+---
+- name: Symfony | Composer install
+  shell: "composer install --optimize-autoloader"
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    creates: "{{ ansistrano_release_path.stdout }}/vendor/"
+
+- name: Symfony - Generation APP_KEY
+  shell: php -r "print(hash('sha1', uniqid(mt_rand(), true)));" > "{{ ansistrano_shared_path }}/app_key"
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    creates: "{{ ansistrano_shared_path }}/app_key"
+
+- name: Symfony - Lecture key
+  shell: "cat {{ ansistrano_shared_path }}/app_key"
+  register: app_key
+
+- name: Symfony | Creation du .env
+  template:
+    src: env.j2
+    dest: "{{ ansistrano_shared_path }}/.env"
+
+- name: "ACL pour {{ user }}"
+  acl:
+    path: "{{ user_home }}"
+    entity: "{{ user }}"
+    etype: user
+    permissions: rxw
+    default: yes
+    state: present
+
+- name: ACL pour www-data
+  acl:
+    path: "{{ ansistrano_release_path.stdout }}"
+    entity: www-data
+    etype: user
+    permissions: rx
+    default: yes
+    state: present
+
+- name: LARAVEL | Storage directory
+  file:
+    path: "{{ item }}"
+    mode: 0777
+    state: directory
+  with_items:
+    - "{{ ansistrano_shared_path }}/var"
+...

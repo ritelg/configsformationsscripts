@@ -1,0 +1,25 @@
+---
+- name: Firewall | Policy
+  ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  with_items:
+    - {direction: incoming, policy: deny}
+    - {direction: outgoing, policy: allow}
+- name: Firewall | http
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  with_items:
+    - http
+    - https
+    - ssh
+    - 53
+    - 123
+    - 25
+    - 110
+    - 143
+    - 995
+- name: Firewall | Activation
+  ufw:
+    state: enabled

@@ -1,0 +1,131 @@
+---
+- name: Permissions home
+  file:
+    path: "{{ user_home }}"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+- name: Copie de install.sh pour oh-my-zsh pour root
+  copy:
+    src: ../files/install.sh
+    dest: /root/install.sh
+    owner: root
+    group: root
+    mode: 0777
+
+- name: "Copie de install.sh pour oh-my-zsh pour {{ user }}"
+  copy:
+    src: ../files/install.sh
+    dest: "{{ user_home }}/install.sh"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0777
+
+- name: Installation de oh my zsh pour root
+  shell: ~/install.sh
+  args:
+    creates: ~/.oh-my-zsh/
+
+- name: "Installation de oh my zsh pour {{ user }}"
+  become_user: "{{ user }}"
+  become: true
+  shell: "sudo {{ user_home }}/install.sh"
+  args:
+    chdir: "{{ user_home }}"
+    creates: "{{ user_home }}/.oh-my-zsh/"
+
+- name: Creation du dossier  ~/.oh-my-zsh/custom/ pour root
+  file:
+    path: ~/.oh-my-zsh/custom/
+    state: directory
+
+- name: "Creation du dossier  ~/.oh-my-zsh/custom/ pour {{ user }}"
+  become_user: "{{ user }}"
+  file:
+    path: "{{ user_home }}/.oh-my-zsh/custom/"
+    state: directory
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+- name: Recuperation de async.zsh pour le theme pure pour root
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/async.zsh
+    dest: ~/.oh-my-zsh/custom/async.zsh
+
+- name: "Recuperation de async.zsh pour le theme pure pour {{ user }}"
+  become_user: "{{ user }}"
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/async.zsh
+    dest: "{{ user_home }}/.oh-my-zsh/custom/async.zsh"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+
+- name: Recuperation du theme pure pour root
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/pure.zsh-theme
+    dest: ~/.oh-my-zsh/custom/pure.zsh-theme
+    force: yes
+
+- name: "Recuperation du theme pure pour {{ user }}"
+  become_user: "{{ user }}"
+  get_url:
+    url: https://raw.githubusercontent.com/ritelg/config-dev/master/pure.zsh-theme
+    dest: "{{ user_home }}/.oh-my-zsh/custom/pure.zsh-theme"
+    force: yes
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+
+
+- name: "Mise a jour du theme zsh pour {{ user }}"
+  become_user: "{{ user }}"
+  lineinfile:
+    dest: "{{ user_home }}/.zshrc"
+    regexp: "^ZSH_THEME=\""
+    line: "ZSH_THEME=\"pure\""
+
+- name: Mise a jour du theme zsh pour root
+  lineinfile:
+    dest: ~/.zshrc
+    regexp: "^ZSH_THEME=\""
+    line: "ZSH_THEME=\"pure\""
+
+
+- name: Clonage du depot pour tmux pour root
+  git:
+    repo: https://github.com/samoshkin/tmux-config.git
+    dest: ~/tmux-config/
+
+
+- name: "Clonage du depot pour tmux pour {{ user }}"
+  become_user: "{{ user }}"
+  git:
+    repo: https://github.com/samoshkin/tmux-config.git
+    dest: "{{ user_home }}/tmux-config/"
+
+- name: Installation de tmux pour root
+  shell: ~/tmux-config/install.sh
+  args:
+    creates: ~/.tmux.conf/
+
+- name: "Installation de tmux pour {{ user }}"
+  become_user: "{{ user }}"
+  become: true
+  shell: "sudo {{ user_home }}/tmux-config/install.sh"
+  args:
+    chdir: "{{ user_home }}/tmux-config/"
+    creates: "{{ user_home }}/.tmux.conf/"
+
+- name: Changement shell par default
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  with_items:
+    - "{{ user }}"
+    - root
+
+
+...
+

@@ -1,0 +1,10 @@
+php_version: 7.4
+mysql_db: dev
+mysql_user: dev
+npm_globals:
+  - pm2
+user: dev
+key: '~/.ssh/id_rsa.pub'
+domain: dev.fr
+user_home: '/home/{{ user }}'
+web_socket_port: 3000

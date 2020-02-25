@@ -1,0 +1,17 @@
+---
+- name: Symfony | Composer install
+  shell: "composer install --optimize-autoloader"
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+
+- name: Symfony | Installations des Dependances
+  shell: yarn install
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+
+- name: Symfony | Constructions des assets
+  shell: yarn run build
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    
+...

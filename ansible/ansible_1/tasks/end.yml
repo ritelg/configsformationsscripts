@@ -1,0 +1,27 @@
+---
+- name: Symfony | Creation du schema de la base de données
+  shell: php bin/console doctrine:schema:update --force
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: Symfony | Seed ?
+  stat:
+    path: "{{ ansistrano_shared_path }}/seeded"
+  register: seeded
+- name: Symfony | Seeding de la base de données
+  shell: php bin/console doctrine:fixtures:load -n
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+
+- name: Symfony | Seeded
+  file:
+    path: "{{ ansistrano_shared_path }}/seeded"
+    state: touch
+  when: seeded.stat.exists == false
+
+- name: Symfony | Nettoyage du cache
+  shell: php bin/console cache:clear && php bin/console cache:warmup
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+
+
+...

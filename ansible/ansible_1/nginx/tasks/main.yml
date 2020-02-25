@@ -1,0 +1,19 @@
+---
+- name: Nginx | Install
+  apt:
+    name: nginx
+    state: present
+- name: Default vhost
+  template:
+    src: default.j2
+    dest: "/etc/nginx/sites-available/default"
+#
+#- name: Ajout du domaine dans /etc/hosts
+#  shell: "echo '127.0.0.1 {{ domain }} www.{{ domain }}' >> /etc/hosts"
+# TODO Enlever commentaire pour ajout du domaine dans /ets/hosts
+
+- name: "Nginx | Vhost {{ domain }}"
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+  notify: nginx reload

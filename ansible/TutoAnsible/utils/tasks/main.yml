@@ -1,0 +1,12 @@
+---
+- name: TOOLS | Installations de Git, zsh, vim, pm2
+  apt:
+    name:
+      - vim
+      - zsh
+      - git
+      - tmux
+      - unzip
+    state: present
+
+...

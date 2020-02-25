@@ -1,0 +1,21 @@
+alias genSshKey='ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa'
+alias sshAdd='eval "$(ssh-agent -s)" && ssh-add'
+alias doc='zeal'
+alias docker_deleteAllContainers='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+PATH=$PATH:/home/ritelg/Documents/ProjectWeb/configs/config-dev/scripts:~/.config/composer/vendor/bin/:~/IDE/phpstorm/bin/:~/.symfony/bin
+
+docker_ips() {
+    docker inspect $(docker ps -aq) --format='{{ .Name  }} => {{ .NetworkSettings.Networks.pipeline_default.IPAddress }} => {{ .State.Status }}'
+}
+
+docker_clean() {
+    docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
+    docker volume prune
+    docker network prune
+}
+
+docker_images_updates() {
+    echo 'Mise a jour des Images Docker'
+    for image in $(docker ps -a | awk '{ if (NR != 1) print $2 }'); do docker pull $image; done
+    echo 'Mise a jour termine'
+}
