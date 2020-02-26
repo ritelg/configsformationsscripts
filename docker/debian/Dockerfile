@@ -6,9 +6,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' >> /etc/apt/sources.list
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends systemd python sudo bash iproute net-tools openssh-server openssh-client vim bash \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends systemd python sudo bash iproute net-tools openssh-server openssh-client vim bash zsh tmux curl
+RUN apt-get install git -y
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
 RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
@@ -24,6 +25,32 @@ RUN systemctl set-default multi-user.target
 RUN sed -i 's#root:\*#root:sa3tHJ3/KuYvI#' /etc/shadow
 ENV init /lib/systemd/systemd
 VOLUME [ "/sys/fs/cgroup" ]
+
+# Installation de oh my zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN git clone https://github.com/sindresorhus/pure.git /root/pure/
+RUN mkdir -p /root/.oh-my-zsh/custom/
+RUN mv /root/pure/async.zsh /root/.oh-my-zsh/custom/async.zsh
+# RUN rm ~/.oh-my-zsh/themes/pure.zsh-theme
+RUN mv /root/pure/pure.zsh /root/.oh-my-zsh/themes/pure.zsh-theme
+RUN sed -i "s/robbyrussell/pure/g" /root/.zshrc
+ 
+# Installation de tmux
+RUN git clone https://github.com/samoshkin/tmux-config.git /root/tmux-config/
+RUN chmod +x /root/tmux-config/install.sh
+#  RUN /root/tmux-config/install.sh
+
+# Perso VIM
+ RUN mkdir -p /root/.vim/autoload /root/.vim/bundle
+ RUN curl -LSso /root/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+ COPY .vimrc /root/.vimrc
+ RUN git clone https://github.com/vim-airline/vim-airline.git /root/.vim/bundle/vim-airline
+ RUN git clone https://github.com/vim-syntastic/syntastic.git /root/.vim/bundle/syntastic
+ RUN git clone https://github.com/majutsushi/tagbar.git /root/.vim/bundle/tagbar
+ RUN git clone https://github.com/kien/ctrlp.vim.git /root/.vim/bundle/ctrlp/
+ RUN git clone https://github.com/Shougo/vimproc.vim.git /root/.vim/bundle/vimproc.vim
+
+RUN service ssh start
 
 ENTRYPOINT ["/lib/systemd/systemd"]
 

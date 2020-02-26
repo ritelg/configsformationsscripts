@@ -3,7 +3,7 @@ FROM jenkins/jenkins:lts
 USER root
 
 RUN apt-get update -y
-RUN apt-get install git sshpass wget ansible gnupg2 curl vim zsh -y
+RUN apt-get install git sshpass wget ansible gnupg2 curl vim zsh openssh-server openssh-client sudo fish tmux -y
 
 RUN curl -fsSL https://get.docker.com | sh
 RUN usermod -aG docker jenkins
@@ -31,9 +31,13 @@ RUN mv /root/pure/pure.zsh /root/.oh-my-zsh/themes/pure.zsh-theme
 RUN sed -i "s/robbyrussell/pure/g" /root/.zshrc
  
 # Installation de tmux
-RUN apt-get install tmux -y
 RUN git clone https://github.com/samoshkin/tmux-config.git /root/tmux-config/
 RUN chmod +x /root/tmux-config/install.sh
 RUN /root/tmux-config/install.sh
+
+# Installation de SSH
+RUN echo 'jenkins ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+RUN service ssh start
 
 USER jenkins

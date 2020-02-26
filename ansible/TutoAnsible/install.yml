@@ -1,5 +1,4 @@
 ---
----
 - name: Installation du serveur
   hosts: all
   remote_user: root
@@ -22,12 +21,6 @@
       line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
       validate: 'visudo -cf %s'
   - name: APT | Update & Upgrade
-    apt:
-      upgrade: dist
-      update_cache: yes
-
-  - include_role:
-      name: "{{ item }}"
-    with_items:
-      - utils
+    command: apt-get update
+    command: apt-get upgrade -y
 ...

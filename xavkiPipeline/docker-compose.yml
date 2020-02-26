@@ -14,6 +14,21 @@ services:
     volumes:
       - '/srv/data/jenkins/jenkins_data:/jenkins_home'
       - '/srv/data/jenkins/jenkins:/var/jenkins_config'
+    networks: 
+      - pipeline
+  srv_dev:
+    container_name: srv_dev
+    image: ritelg/debian:9-v1.0-test
+    volumes:
+      - '/srv/data/html:/srv/html'
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    cap_add: 
+      - NET_ADMIN
+      - SYS_ADMIN
+    expose: 
+      - '22'
+    networks: 
+      - pipeline
 #  gitlab:
 #    image: 'gitlab/gitlab-ce:latest'
 #    restart: always
@@ -30,3 +45,5 @@ services:
 #      - '/srv/data/gitlab/config:/etc/gitlab'
 #      - '/srv/data/gitlab/logs:/var/log/gitlab'
 #      - '/srv/data/gitlab/data:/var/opt/gitlab'
+networks:
+  pipeline:

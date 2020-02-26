@@ -53,6 +53,11 @@ if [ "$1" == "--create" ];then
 		docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "mkdir  ${HOME}/.ssh && chmod 700 ${HOME}/.ssh && chown ${USERNAME}:${USERNAME} $HOME/.ssh"
 		docker cp ${HOME}/.ssh/id_rsa.pub ${USERNAME}-vmparc${i}:${HOME}/.ssh/authorized_keys
 		docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "chmod 600 ${HOME}/.ssh/authorized_keys && chown ${USERNAME}:${USERNAME} ${HOME}/.ssh/authorized_keys"
+
+		# docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "mkdir  /root/.ssh && chmod 700 /root/.ssh && chown root:root /root/.ssh"
+		# docker cp ${HOME}/.ssh/id_rsa.pub ${USERNAME}-vmparc${i}:/root/.ssh/authorized_keys
+		# docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "chmod 600 /root/.ssh/authorized_keys && chown root:root /root/.ssh/authorized_keys"
+
 		docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "echo '${USERNAME}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
 		docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "service ssh start"
 	done
