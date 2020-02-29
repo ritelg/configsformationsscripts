@@ -1,20 +1,5 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;
-;==========================================================
+; Doc: https://github.com/jaagr/polybar
+; Wiki: https://github.com/jaagr/polybar/wiki
 
 [colors]
 active = ${xrdb:active}
@@ -48,30 +33,27 @@ font-1 = FontAwesome:size=11;3
 font-2 = MaterialIcons:size=11;4
 
 modules-left = i3
-modules-center = xwindow
-modules-right = cpu memory volume date powermenu
+modules-center = 
 
-[bar/center]
+[bar/hdmi]
 inherit = bar/default
-monitor = DVI-I-1
-modules-right = redshift powermenu
+monitor = HDMI-1
+modules-right =  wired cpu memory dockerIps volume date powermenu
 tray-position = right
 tray-detached = false 
 tray-padding = 0
 
-[bar/left]
+[bar/principale]
 inherit = bar/default
-monitor = HDMI-0
-modules-left = 
-modules-right = cpu memory i3
+monitor = LVDS-1
+modules-right = wired cpu memory volume date powermenu
+tray-position = right
+tray-detached = false 
+tray-padding = 0
 
-[bar/right]
-inherit = bar/default
-monitor = DVI-D-0
-modules-left = i3 
-modules-center = date
-modules-right = volume
-padding-left = 3
+[module/dockerIps]
+type = custom/script
+exec = echo 'TEST'
 
 [module/i3]
 type = internal/i3
@@ -93,7 +75,7 @@ label-visible-padding = 2
 label-urgent = %index%  %icon%
 label-urgent-padding = 2
 label-focused-foreground = ${colors.active}
-label-focused-background = #29373d
+label-focused-background = #2F3344
 label-focused-underline = ${colors.underline}
 label-visible-foreground = ${colors.active}
 label-unfocused-foreground = ${colors.secondary}
@@ -109,10 +91,6 @@ ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
-
 [module/filesystem]
 type = internal/fs
 interval = 25
@@ -121,24 +99,20 @@ label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.secondary}
 
-[module/redshift]
-type = custom/script
-interval = 5
-exec = ~/.config/polybar/redshift.sh
-
 [module/cpu]
 type = internal/cpu
-interval = 2
+interval = 3
 format = <label>
-format-prefix = "  "
+format-prefix = " Cpu : "
 label = %percentage%%
 format-foreground = ${colors.cpu}
 label-foreground = ${colors.cpu}
+padding = '5px'
 
 [module/memory]
 type = internal/memory
-interval = 2
-format-prefix = " "
+interval = 3
+format-prefix = " Mem : "
 label = %percentage_used%%
 format-foreground = ${colors.ram}
 label-foreground = ${colors.ram}
@@ -192,9 +166,3 @@ menu-0-1 = power off
 menu-0-1-foreground = ${colors.foreground}
 menu-0-1-exec = poweroff
 
-[settings]
-screenchange-reload = true
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5

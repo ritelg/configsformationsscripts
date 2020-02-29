@@ -48,6 +48,33 @@ sudo yum install i3 rofi rxvt-unicode thunar compton fontawesome-fonts ranger fo
 #### Installtion de Polybar
 
 * https://computingforgeeks.com/install-polybar-status-bar-on-fedora/
+* https://github.com/polybar/polybar
+
+* Lister moniteurs : polybar --list-monitors
+
+* Ajouter entree dans /usr/share/applications et creer fichier app.desktop (phpstorm.desktop):
+
+```
+    [Desktop Entry]
+    Name=PHPSTORM
+    Comment=Code Editing. Redefined.
+    GenericName=Text Editor
+    Exec=/home/ritelg/AppsTar/Phpstorm/bin/phpstorm.sh
+    Icon=/home/ritelg/AppsTar/Phpstorm/bin/phpstorm.png
+    Type=Application
+    StartupNotify=false
+    StartupWMClass=Code
+    Categories=Utility;TextEditor;Development;IDE;
+    MimeType=text/plain;inode/directory;
+    Actions=new-empty-window;
+    Keywords=phpstorm;
+
+    [Desktop Action new-empty-window]
+    Name=New Empty Window
+    Exec=/home/ritelg/AppsTar/Phpstorm/bin/phpstorm.sh
+    Icon=/home/ritelg/AppsTar/Phpstorm/bin/phpstorm.png
+```
+
 
 ```
 sudo yum install -y \

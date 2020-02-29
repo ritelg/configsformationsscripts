@@ -436,6 +436,8 @@ certains intégrés au noyau
 
 ## Commandes utiles
 
+* sort -d -f -b file > file : trier fichier
+
 ### jq : Manipuler du json
 
 #### Filtre
@@ -457,7 +459,9 @@ certains intégrés au noyau
 
 ### AWK 
 
+### netstat
 
+* netstat -ntaup
 
 ### xmlstarlet : Manipuler du xml
 

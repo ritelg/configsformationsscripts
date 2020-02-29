@@ -8,42 +8,114 @@ services:
     environment:
       JENKINS_HOME: /jenkins_home
     ports:
-      - '8080:8080'
+      - '8081:8080'
       - '8443:8443'
       - '50000:50000'
     volumes:
       - '/srv/data/jenkins/jenkins_data:/jenkins_home'
       - '/srv/data/jenkins/jenkins:/var/jenkins_config'
-    networks: 
-      - pipeline
+    networks:
+      pipeline:
+          ipv4_address: '172.20.0.1'
   srv_dev:
     container_name: srv_dev
     image: ritelg/debian:9-v1.0-test
     volumes:
       - '/srv/data/html:/srv/html'
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    cap_add: 
+    cap_add:
       - NET_ADMIN
       - SYS_ADMIN
-    expose: 
-      - '22'
-    networks: 
-      - pipeline
-#  gitlab:
-#    image: 'gitlab/gitlab-ce:latest'
-#    restart: always
-#    hostname: 'gitlab.ritelg.com'
-#    container_name: "gitlab"
-#    environment:
-#      GITLAB_OMNIBUS_CONFIG: |
-#        external_url 'https://gitlab.ritelg.com'
-#        # Add any other gitlab.rb configuration here, each on its own line
-#    ports:
-#      - '80:80'
-#      - '443:443'
-#    volumes:
-#      - '/srv/data/gitlab/config:/etc/gitlab'
-#      - '/srv/data/gitlab/logs:/var/log/gitlab'
-#      - '/srv/data/gitlab/data:/var/opt/gitlab'
+    expose:
+      - '2221'
+    networks:
+      pipeline:
+          ipv4_address: '172.20.0.2'
+  registry:
+    restart: always
+    image: registry:2
+    container_name: registry
+    ports:
+      - 5000:5000
+    networks:
+      pipeline:
+          ipv4_address: '172.20.0.3'
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/myregistry.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/myregistry.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+    volumes:
+      - /srv/data/registry/data:/var/lib/registry
+      - /srv/data/registry/certs:/certs
+      - /srv/data/registry/passwd:/auth
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'gitlab.ritelg.com'
+    container_name: "gitlab"
+    ports:
+      - '8082:80'
+      - '4433:443'
+      - '2222:22'
+    networks:
+      pipeline:
+          ipv4_address: '172.20.0.4'
+    volumes:
+      - '/srv/data/gitlab/config:/etc/gitlab'
+      - '/srv/data/gitlab/logs:/var/log/gitlab'
+      - '/srv/data/gitlab/data:/var/opt/gitlab'
+  gitlabRunner:
+    image: 'ritelg/gitlab-runner:latest'
+    restart: always
+    container_name: "gitlab-runner"
+    networks:
+      pipeline:
+          ipv4_address: '172.20.0.5'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/srv/data/gitlab-runner:/etc/gitlab-runner'
+      - '/srv/data/.ssh:/root/.ssh'
+      - '/srv/data/.ssh:/home/gitlab-runner/.ssh'
 networks:
   pipeline:
+    ipam:
+      driver: default
+      config:
+          - subnet: 172.20.0.0/16
+
+
+##########################::
+## Launch : docker-compose up -d registry srv_dev jenkins gitlabRunner && sudo docker-compose up -d gitlab
+## Registry :
+##    mkdir -p /srv/data/registry/{data,certs,passwd}
+##    docker run --entrypoint htpasswd registry:2 -Bbn USERNAME PASSWD > /srv/data/registry/passwd/htpasswd
+##    openssl req -x509 -newkey rsa:4096 -nodes -keyout certs/myregistry.key -out certs/myregistry.crt -days 365 -subj /CN=myregistry.my
+##    docker login 127.0.0.1:5000 -u USERNAME
+##    "127.0.0.1:5000 myregistry" >> /etc/hosts
+##
+## Gitlab :
+##    mkdir -p /srv/data/gitlab/{config,data,logs}
+##    sudo docker-compose up -d gitlab
+##    Creation clé SSH et ajout
+##
+##    https://www.sheevaboite.fr/articles/installer-gitlab-5-minutes-docker/
+##
+##    Ajout de 127.0.0.1 gitlab.ritelg.com dans /etc/hosts
+##
+##    Config ssh ~/.ssh/config :
+##          Host gitlab.ritelg.com
+##              Port 2222
+##              HostName 127.0.0.1
+##              Identityfile chemin cle ssh
+##
+## Gitlab Runner :
+##    générés clés SSH dans /srv/data/.ssh : ssh-keygen -t rsa -b 4096 -f 
+##    https://www.sheevaboite.fr/articles/installer-gitlab-ci-moins-5-minutes-docker/
+##    Aller dans la page d'admin runner de gitlab : http://localhost:8080/admin/runners
+##    docker exec -it gitlab-runner gitlab-runner register -u http://gitlab:80 --name "description" --tag-list tags -r token  --executor docker --docker-image image --non-interactive
+##
+##
+##########################

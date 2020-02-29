@@ -1,0 +1,55 @@
+alsa-lib-devel 
+autoconf 
+automake 
+binutils 
+build-essential 
+cairo-devel
+cmake 
+compton 
+ctags 
+curl 
+@development-tools 
+dkms
+fontawesome-fonts 
+g++
+gcc 
+gcc-c++ 
+git 
+git curl 
+glibc-devel 
+glibc-headers 
+gnupg2 
+g++ q
+htop
+i3 
+i3-devel jsoncpp-devel 
+i3-ipc 
+iptables
+kernel-headers 
+libcurl-devel 
+libgomp 
+libmpdclient-devel 
+libnl3-devel 
+lxappearance
+lxdm
+make 
+patch 
+pulseaudio-libs-devel 
+ranger 
+rofi 
+rxvt-unicode 
+sshpass 
+thunar 
+tmux 
+vim 
+vim zsh 
+wget 
+wireless-tools-devel 
+xcb-proto 
+xcb-util-cursor-devel 
+xcb-util-devel 
+xcb-util-image-devel 
+xcb-util-wm-devel 
+xcb-util-xrm-devel 
+zsh 
+lshw

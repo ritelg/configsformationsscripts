@@ -1,5 +1,7 @@
-alias genSshKey='ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa'
+alias genSshKey='ssh-keygen -t rsa -b 4096 -f '
 alias sshAdd='eval "$(ssh-agent -s)" && ssh-add'
 alias doc='zeal'
+alias parametres="XDG_CURRENT_DESKTOP=GNOME; gnome-control-center"
 alias docker_deleteAllContainers='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 PATH=$PATH:/home/ritelg/Documents/ProjectWeb/Formations_Configs_Scripts/scripts:~/.config/composer/vendor/bin/:~/IDE/phpstorm/bin/:~/.symfony/bin
+alias listMonitors="randr -q | grep  connected | cut -d ' ' -f1"

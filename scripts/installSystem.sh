@@ -19,17 +19,14 @@ debianUpgradeSystemClean() {
 	sudo apt-get autoremove
 	sudo apt-get update
 	sudo apt-get upgrade
-	sudo apt-get install build-essential git curl vim zsh ctags tmux cmake g++ -y
+	sudo apt-get install  -y
 }
 
 fedoraUpgradeSystemClean() {
 	echo "Nettoyage et Mise à jour de Fedora"
 	sudo yum check-update -y && sudo yum update -y
-	sudo yum remove PackageKit gnome-software.x86_64 gnome-weather.noarch gnome-calendar.x86_64 gnome-disk-utility.x86_64 gnome-contacts.x86_64 -y
-	sudo yum remove gnome-maps.x86_64 gnome-logs.x86_64 abrt.x86_64 gnome-abrt.x86_64 gnome-video-effects.noarch -y
-	sudo yum remove 'libreoffice-*' -y
-	sudo yum install build-essential git curl vim zsh ctags tmux cmake wget sshpass gnupg2 g++ -y 
-	sudo yum install gcc binutils make glibc-devel patch libgomp glibc-headers  kernel-headers kernel-devel-`uname -r` dkms -y
+	sudo yum remove  -y
+	sudo yum install kernel-devel-`uname -r` -y
 }
 
 debianNodejsInstall() {
