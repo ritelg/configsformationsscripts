@@ -1,6 +1,6 @@
 ARG PHP_VERSION='7.4'
 
-FROM php:${PHP_VERSION}-fpm
+FROM php:${PHP_VERSION}-apache
 
 RUN apt-get update 
 RUN apt-get install -y \
@@ -9,7 +9,8 @@ RUN apt-get install -y \
       fish \
       apt-transport-https \
       lsb-release \
-      ca-certificates
+      ca-certificates \
+      vim
 
 RUN apt-get install -y libzip-dev && docker-php-ext-install pdo zip
 
@@ -46,4 +47,5 @@ RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 
 ADD xdebug.ini /usr/local/etc/php/conf.d/
+RUN chmod -R 777 /var/www/html
 

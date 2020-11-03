@@ -121,7 +121,8 @@ sudo ./build.sh
 ****************************
 
 ### Docker et Vagrant et Ansible
-
+* Installation de docker (fedora 31):
+    * https://medium.com/@drpdishant/installing-docker-on-fedora-31-beta-6c7a05901613
 * Dockerfile : 
     * Php 7.4 avec xdebug
     * Debian
@@ -140,3 +141,7 @@ sudo ./build.sh
     * Docker
     * Vagrant support
     * Live serveur
+
+
+### Config GIT
+* git config --global branch.autosetuprebase always

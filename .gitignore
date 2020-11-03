@@ -1,3 +1,4 @@
 *.log*
 *.idea*
 .git
+scripts/access_token.txt
