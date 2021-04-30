@@ -1,5 +1,6 @@
 # FROM node:12
-FROM node:13-alpine
+
+FROM node:14-alpine
 
 RUN mkdir -m 777 /.npm
 RUN mkdir -m 777 /.yarn
@@ -7,9 +8,6 @@ RUN touch /.yarnrc && chmod 777 /.yarnrc
 
 
 RUN apk add sudo fish
-USER root
-RUN echo 'node   ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-
 # RUN apt-get update
 # RUN apt-get install -y fish sudo git zip fonts-liberation libappindicator3-1 xdg-utils mplayer
 #

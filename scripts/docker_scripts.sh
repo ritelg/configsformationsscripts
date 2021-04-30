@@ -12,11 +12,128 @@ if [ "$1" == "" ] || [ "$1" == "--help" ];then
 		--containers_info : Infos sur les containers
 		--containers_drop : Surpime tous les containers
 		--clean_all : Surpime tous les containers, les reseaux, les volumes
+		--clean_null_images : Suprime les images null
 		--clean_images : Surpime tous les containers, les reseaux, les volumes
 		--info : Affiche cette aide
 		--php : Lance un container avec php7.4 et composer
 		--rm-php : Suprime le container php
+
+		--create : lancer des conteneurs
+		--drop : supprimer les conteneurs créer par le --create
+		--infos : caractéristiques des conteneurs (ip, nom, user...)
+		--start : redémarrage des conteneurs
+		--ansible : déploiement arborescence ansible
+		
+		--jekyll: Lance un container jekyll
 	"
+fi
+
+createNodes() {
+	# définition du nombre de conteneur
+	nb_machine=1
+	[ "$1" != "" ] && nb_machine=$1
+	# setting min/max
+	min=1
+	max=0
+
+	# récupération de idmax
+	idmax=`docker ps -a --format '{{ .Names}}' | awk -F "-" -v user="$USER" '$0 ~ user"-debian" {print $3}' | sort -r |head -1`
+	# redéfinition de min et max
+	min=$(($idmax + 1))
+	max=$(($idmax + $nb_machine))
+
+	# lancement des conteneurs
+	for i in $(seq $min $max);do
+		docker run -tid --privileged --publish-all=true -v /srv/data:/srv/html -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name $USER-debian-$i -h $USER-debian-$i priximmo/buster-systemd-ssh
+		docker exec -ti $USER-debian-$i /bin/sh -c "useradd -m -p sa3tHJ3/KuYvI $USER"
+		docker exec -ti $USER-debian-$i /bin/sh -c "mkdir  ${HOME}/.ssh && chmod 700 ${HOME}/.ssh && chown $USER:$USER $HOME/.ssh"
+	docker cp $HOME/.ssh/id_rsa.pub $USER-debian-$i:$HOME/.ssh/authorized_keys
+	docker exec -ti $USER-debian-$i /bin/sh -c "chmod 600 ${HOME}/.ssh/authorized_keys && chown $USER:$USER $HOME/.ssh/authorized_keys"
+		docker exec -ti $USER-debian-$i /bin/sh -c "echo '$USER   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
+		docker exec -ti $USER-debian-$i /bin/sh -c "service ssh start"
+		echo "Conteneur $USER-debian-$i créé"
+	done
+	infosNodes	
+
+}
+
+dropNodes(){
+	echo "Suppression des conteneurs..."
+	docker rm -f $(docker ps -a | grep $USER-debian | awk '{print $1}')
+	echo "Fin de la suppression"
+}
+
+startNodes(){
+	echo ""
+	docker start $(docker ps -a | grep $USER-debian | awk '{print $1}')
+  for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do
+		docker exec -ti $conteneur /bin/sh -c "service ssh start"
+  done
+	echo ""
+}
+
+
+createAnsible(){
+	echo ""
+  	ANSIBLE_DIR="ansible_dir"
+  	mkdir -p $ANSIBLE_DIR
+  	echo "all:" > $ANSIBLE_DIR/00_inventory.yml
+	echo "  vars:" >> $ANSIBLE_DIR/00_inventory.yml
+    echo "    ansible_python_interpreter: /usr/bin/python3" >> $ANSIBLE_DIR/00_inventory.yml
+  echo "  hosts:" >> $ANSIBLE_DIR/00_inventory.yml
+  for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do      
+    docker inspect -f '    {{.NetworkSettings.IPAddress }}:' $conteneur >> $ANSIBLE_DIR/00_inventory.yml
+  done
+  mkdir -p $ANSIBLE_DIR/host_vars
+  mkdir -p $ANSIBLE_DIR/group_vars
+	echo ""
+}
+
+infosNodes(){
+	echo ""
+	echo "Informations des conteneurs : "
+	echo ""
+	for conteneur in $(docker ps -a | grep $USER-debian | awk '{print $1}');do      
+		docker inspect -f '   => {{.Name}} - {{.NetworkSettings.IPAddress }}' $conteneur
+	done
+	echo ""
+}
+createJekyll() {
+	export JEKYLL_VERSION=latest
+	docker run --rm \
+	--volume="$PWD:/srv/jekyll" \
+	-it jekyll/builder:$JEKYLL_VERSION \
+	jekyll build --trace
+	
+}
+cleanNullImages() {
+	if [ "$(docker images -f "dangling=true" -q | awk '{print $3}' | sort -u)x" != "x" ]
+	then
+		docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+	fi
+}
+
+#si option --create
+if [ "$1" == "--create" ];then
+	createNodes $2
+
+# si option --drop
+elif [ "$1" == "--drop" ];then
+	dropNodes
+
+# si option --start
+elif [ "$1" == "--start" ];then
+	startNodes
+
+# si option --ansible
+elif [ "$1" == "--ansible" ];then
+	createAnsible
+
+# si option --infos
+elif [ "$1" == "--infos" ];then
+	infosNodes
+elif [ "$1" == "--jekyll" ];then
+	createJekyll
 fi
 
 if [ "$1" == "--networks_ips" ];then
@@ -79,11 +196,14 @@ fi
 if [ "$1" == "--clean_images" ];then
 	docker images -a | grep "gitlab" -v | awk '{print $3}' | xargs docker rmi -f
 fi
+if [ "$1" == "--clean_null_images" ];then
+	cleanNullImages
+fi
 
 if [ "$1" == "--php" ];then
 	if [ `docker ps | grep ritelg-php | wc -l` == 0 ]; then
 		echo "  => Creation du containeur php"
-		docker run -tid --workdir /var/www -v ${PWD}:/var/www --name ${USER}-php ritelg/php:7.4-v1.0-xdebug
+		docker run -tid --workdir /var/www -v ${PWD}:/var/www --name ${USER}-php ritelg/php:7.4-v1.1-xdebug
 		echo "  => création de l'utilisateur ${USER}"
 		docker exec -ti ${USER}-php /bin/bash -c "useradd -m -p sa3tHJ3/KuYvI ${USER}"
 		docker exec -ti ${USER}-php /bin/bash -c "echo '${USER}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"

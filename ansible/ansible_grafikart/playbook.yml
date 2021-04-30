@@ -1,0 +1,17 @@
+---
+- name: Installation du serveur
+  hosts: web
+  remote_user: ritelg
+  become: true
+  tasks:
+  - include_vars:
+      file: vars.yml
+  - name: Installations des paquets de base
+    become: yes
+    apt: 
+      name:
+        - vim
+        - fish
+        - git
+      state: present
+...

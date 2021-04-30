@@ -1,8 +1,8 @@
 FROM cypress/browsers:latest
 
-RUN npm i cypress
+RUN npm i -g cypress
 
 RUN apt-get update
-RUN apt-get install fish
+RUN apt-get install fish -y
 
-RUN $(npm bin)/cypress install
+RUN cypress install --force

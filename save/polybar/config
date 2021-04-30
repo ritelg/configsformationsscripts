@@ -10,50 +10,42 @@ secondary = ${xrdb:secondary}
 underline = ${xrdb:color3}
 ram = ${xrdb:color14}
 cpu = ${xrdb:color13}
-spotify = ${xrdb:color10}
 power= ${colors.urgent}
 
 [bar/default]
 height = 32
 offset-y = 0
 top = true
-fixed-center = true 
+fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
-
 line-size = 3
 line-color = #f00
 
-padding-left = 0
-padding-right = 3
-module-margin = 2
 
 font-0 = System San Francisco Display:size=10;2
 font-1 = FontAwesome:size=11;3
 font-2 = MaterialIcons:size=11;4
 
-modules-left = i3
-modules-center = 
+padding-left = 0
+padding-right = 3
+module-margin = 2
 
-[bar/hdmi]
+
+[bar/left]
 inherit = bar/default
 monitor = HDMI-1
-modules-right =  wired cpu memory dockerIps volume date powermenu
-tray-position = right
-tray-detached = false 
-tray-padding = 0
+modules-left = i3
+modules-center =;
+modules-right = cpu memory volume date powermenu 
 
-[bar/principale]
+[bar/right]
 inherit = bar/default
 monitor = LVDS-1
-modules-right = wired cpu memory volume date powermenu
-tray-position = right
-tray-detached = false 
-tray-padding = 0
+modules-left = i3
+modules-center =
+modules-right = cpu memory volume date powermenu wired 
 
-[module/dockerIps]
-type = custom/script
-exec = echo 'TEST'
 
 [module/i3]
 type = internal/i3
@@ -79,7 +71,7 @@ label-focused-background = #2F3344
 label-focused-underline = ${colors.underline}
 label-visible-foreground = ${colors.active}
 label-unfocused-foreground = ${colors.secondary}
-label-urgent-foreground = ${colors.urgent} 
+label-urgent-foreground = ${colors.urgent}
 
 ws-icon-0 = 1;
 ws-icon-1 = 2;
@@ -91,6 +83,10 @@ ws-icon-6 = 7;
 ws-icon-7 = 8;
 ws-icon-8 = 9;
 
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
 [module/filesystem]
 type = internal/fs
 interval = 25
@@ -99,20 +95,20 @@ label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.secondary}
 
+
 [module/cpu]
 type = internal/cpu
-interval = 3
+interval = 2
 format = <label>
-format-prefix = " Cpu : "
+format-prefix = "  "
 label = %percentage%%
 format-foreground = ${colors.cpu}
 label-foreground = ${colors.cpu}
-padding = '5px'
 
 [module/memory]
 type = internal/memory
-interval = 3
-format-prefix = " Mem : "
+interval = 2
+format-prefix = " "
 label = %percentage_used%%
 format-foreground = ${colors.ram}
 label-foreground = ${colors.ram}
@@ -166,3 +162,9 @@ menu-0-1 = power off
 menu-0-1-foreground = ${colors.foreground}
 menu-0-1-exec = poweroff
 
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5

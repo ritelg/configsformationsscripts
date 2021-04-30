@@ -36,7 +36,7 @@ VOLUME [ "/sys/fs/cgroup" ]
  RUN git clone https://github.com/kien/ctrlp.vim.git /root/.vim/bundle/ctrlp/
  RUN git clone https://github.com/Shougo/vimproc.vim.git /root/.vim/bundle/vimproc.vim
 
-RUN service ssh start
+RUN service sshd start
 
 ENTRYPOINT ["/lib/systemd/systemd"]
 

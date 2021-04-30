@@ -1,4 +1,4 @@
-ARG PHP_VERSION='7.4'
+ARG PHP_VERSION='8.0'
 
 FROM php:${PHP_VERSION}-fpm
 
@@ -9,7 +9,7 @@ RUN apt-get install -y \
       fish \
       apt-transport-https \
       lsb-release \
-      ca-certificates
+      ca-certificates 
 
 RUN apt-get install -y libzip-dev && docker-php-ext-install pdo zip
 
@@ -19,8 +19,7 @@ RUN apt-get install -y libpq-dev && docker-php-ext-install pdo_pgsql
 # Support de MySQL (pour la migration)
 RUN docker-php-ext-install mysqli pdo_mysql
 
-# Xdebug
-RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
+
 
 RUN apt-get install -y zlib1g-dev libicu-dev g++ \
     && docker-php-ext-configure intl \
@@ -41,7 +40,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-RUN apt-get install sudo
+# Install ext-exif
+RUN apt-get -y install exiftool \
+    && docker-php-ext-configure exif \
+    && docker-php-ext-install exif \
+    && docker-php-ext-enable exif 
+
+# Xdebug
+# RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
+
 RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 

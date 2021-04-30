@@ -97,8 +97,9 @@ workspace $ws9 output $moniteurprincipale
 workspace $ws10 output $moniteurhdmi
 
 # assignation programme
-assign [class="jetbrains-phpstorm"] $ws10
-# assign [class="Code"] $ws1
+# Identifier programme : xprop | grep CLASS
+assign [class="jetbrains-idea"] $ws10
+assign [class="Code"] $ws1
 assign [class="URxvt"] $ws2
 assign [class="Google-chrome"] $ws3
 assign [class="discord"] $ws5
@@ -149,5 +150,5 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-exec_always --no-startup-id "killall polybar;polybar -r center & polybar -r hdmi & polybar -r principale"
-for_window [class=".*"] border pixel 1
+# Redémarre polybar quand on redémarre i3
+exec_always --no-startup-id "killall polybar;polybar -r left;polybar -r right"
