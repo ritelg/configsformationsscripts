@@ -1,27 +1,39 @@
 version: '3'
 services:
   jenkins:
-    image: ritelg/jenkins:lts
-    container_name: "jenkins"
+    container_name: 'pipeline-jenkins'
+    build:
+      context: ./jenkins
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     labels:
       kompose.service.type: nodeport
     environment:
       JENKINS_HOME: /jenkins_home
+      WORKSPACE_PUID: 1000 
+      WORKSPACE_PGID: 1000
     ports:
       - '8084:8080'
       - '8444:8443'
       - '50001:50000'
     volumes:
-      - '/srv/data/jenkins/jenkins_data:/jenkins_home'
-      - '/srv/data/jenkins/jenkins:/var/jenkins_config'
+      - '/srv/pipeline/data/jenkins/jenkins_data:/jenkins_home'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/srv/pipeline/data/jenkins/jenkins:/var/jenkins_config'
+      - '/srv/pipeline/data/jenkins/data:/home/jenkins'
     networks:
       pipeline:
-          ipv4_address: '172.20.0.1'
+          ipv4_address: '172.20.0.2'
+
   srv_dev:
     container_name: srv_dev
-    image: ritelg/debian:9-v1.0-test
+    build:
+      context: ./debian
+      args:
+        USER_ID: ${USER_ID}
+        GROUP_ID: ${GROUP_ID}
     volumes:
-      - '/srv/data/html:/srv/html'
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
     cap_add:
       - NET_ADMIN
@@ -30,11 +42,11 @@ services:
       - '2221'
     networks:
       pipeline:
-          ipv4_address: '172.20.0.2'
+          ipv4_address: '172.20.0.6'
   registry:
     restart: always
-    image: registry:2
-    container_name: registry
+    image: registry:2.7.0
+    container_name: "pipeline-registry"
     ports:
       - 5000:5000
     networks:
@@ -47,15 +59,15 @@ services:
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     volumes:
-      - /srv/data/registry/data:/var/lib/registry
-      - /srv/data/registry/certs:/certs
-      - /srv/data/registry/passwd:/auth
+      - /srv/pipeline/data/registry/data:/var/lib/registry
+      - /srv/pipeline/data/registry/certs:/certs
+      - /srv/pipeline/data/registry/passwd:/auth
 
   gitlab:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: 'gitlab.ritelg.com'
-    container_name: "gitlab"
+    container_name: "pipeline-gitlab"
     ports:
       - '8082:80'
       - '4433:443'
@@ -64,21 +76,21 @@ services:
       pipeline:
           ipv4_address: '172.20.0.4'
     volumes:
-      - '/srv/data/gitlab/config:/etc/gitlab'
-      - '/srv/data/gitlab/logs:/var/log/gitlab'
-      - '/srv/data/gitlab/data:/var/opt/gitlab'
+      - '/srv/pipeline/data/gitlab/config:/etc/gitlab'
+      - '/srv/pipeline/data/gitlab/logs:/var/log/gitlab'
+      - '/srv/pipeline/data/gitlab/data:/var/opt/gitlab'
   gitlabRunner:
     image: 'ritelg/gitlab-runner:latest'
     restart: always
-    container_name: "gitlab-runner"
+    container_name: "pipeline-gitlab-runner"
     networks:
       pipeline:
           ipv4_address: '172.20.0.5'
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/srv/data/gitlab-runner:/etc/gitlab-runner'
-      - '/srv/data/.ssh:/root/.ssh'
-      - '/srv/data/.ssh:/home/gitlab-runner/.ssh'
+      - '/srv/pipeline/data/gitlab-runner:/etc/gitlab-runner'
+      - '/srv/pipeline/data/.ssh:/root/.ssh'
+      - '/srv/pipeline/data/.ssh:/home/gitlab-runner/.ssh'
 networks:
   pipeline:
     ipam:
@@ -88,10 +100,25 @@ networks:
 
 
 ##########################::
-## Launch : docker-compose up -d registry srv_dev jenkins gitlabRunner && sudo docker-compose up -d gitlab
+## Launch : docker-compose up -d registry srv_dev jenkins dind gitlabRunner && sudo docker-compose up -d gitlab
+## Jenkins : 
+##    mkdir -p /srv/data/jenkins/{jenkins_data, jenkins} 
+##    touch /srv/data/jenkins/.dockercfg
+##    creer clé ssh dans le container et la copié dans vagrant 
+##      ssh-keygen -t rsa -b 4096 -f /home/jenkins/.ssh/id_rsa
+##      ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@192.168.5.3
+##      
+##    Configurer ~/.ssh/config
+##    Host IP_VAGRANT
+##        PreferredAuthentications publickey
+##        User vagrant
+##        IdentityFile ~/.ssh/id_rsa
+##        AddKeysToAgent yes
+##  
+##  
 ## Registry :
 ##    mkdir -p /srv/data/registry/{data,certs,passwd}
-##    docker run --entrypoint htpasswd registry:2 -Bbn USERNAME PASSWD > /srv/data/registry/passwd/htpasswd
+##    docker run --entrypoint htpasswd registry:2.7.0 -Bbn ritelg password > /srv/data/registry/passwd/htpasswd
 ##    openssl req -x509 -newkey rsa:4096 -nodes -keyout certs/myregistry.key -out certs/myregistry.crt -days 365 -subj /CN=myregistry.my
 ##    docker login 127.0.0.1:5000 -u USERNAME
 ##    "127.0.0.1:5000 myregistry" >> /etc/hosts

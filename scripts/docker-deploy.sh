@@ -46,7 +46,7 @@ if [ "$1" == "--create" ];then
 	for i in $( seq $id_min $id_max );do
 		echo ""
 		echo "=> conteneur ${USERNAME}-vmparc${i}"
-    docker run -tid -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name ${USERNAME}-vmparc${i} priximmo/stretch-systemd-ssh:v3.1
+    docker run -tid -v /sys/fs/cgroup:/sys/fs/cgroup:ro --name ${USERNAME}-vmparc${i} priximmo/stretch-systemd-ssh:v3.3
 		echo "    => création de l'utilisateur ${USERNAME}"
 		docker exec -ti ${USERNAME}-vmparc${i} /bin/bash -c "useradd -m -p sa3tHJ3/KuYvI ${USERNAME}"
 		echo "Installation de votre clé publique ${HOME}/.ssh/id_rsa.pub"

@@ -15,7 +15,8 @@
 15. [Base de données](#base-de-donnes)
 16. [Personnalisation](#personnalisation)
 17. [Systemd](#systemd)
-18. [Commandes utiles](commandes-utiles)
+18. [Commandes utiles](#commandes-utiles)
+18. [SSH](#ssh)
 	
 ## Liens Utiles
 * https://traduc.org/LPI
@@ -470,4 +471,64 @@ certains intégrés au noyau
 
 
 ### yq : Manipuler du yaml
+
+## SSH
+* Creer une clé : 
+    * ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
+* Ajouter une cle ssh a l’agent : 
+    * ssh-add ~/.ssh/id_rsa
+    * Création d’un service ssh agent pour systemd
+        * https://unix.stackexchange.com/questions/339840/how-to-start-and-use-ssh-agent-as-systemd-service
+        * ~/.config/systemd/user/ssh-agent.service
+        ```
+            [Unit]
+            Description=SSH key agent
+
+            [Service]
+            Type=simple
+            Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+            ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+            [Install]
+            WantedBy=default.target
+        ```
+        * ~/.pam_environment
+        ```bash
+            SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+        ```
+* Demarer un agent ssh
+    * eval (ssh-agent -c)
+* Copié clé ssh sur serveur
+    * ssh-copy-id -i ~/.ssh/id_rsa.pub vagrant@192.168.5.3
+* Configuration ~/.ssh/config
+    ```
+    Host *
+        AddKeysToAgent yes
+
+    Host gitlab.ritelg.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/id_rsa_gitlab
+        AddKeysToAgent yes
+
+    Host gitlab.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/id_rsa_gitlab
+        AddKeysToAgent yes
+
+    Host github.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/id_rsa_github
+        AddKeysToAgent yes
+
+    Host 192.168.5.3
+        PreferredAuthentications publickey
+        User vagrant
+        IdentityFile ~/.ssh/id_rsa_pipeline
+        AddKeysToAgent yes
+    ```
+
+
+## Astuces
+
+* Changer de compte utilisateur : sudo -u jenkins -s
 

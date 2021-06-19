@@ -1,4 +1,4 @@
-ARG PHP_VERSION='8.0'
+ARG PHP_VERSION='7.4'
 
 FROM php:${PHP_VERSION}-fpm
 
@@ -46,8 +46,11 @@ RUN apt-get -y install exiftool \
     && docker-php-ext-install exif \
     && docker-php-ext-enable exif 
 
+# Instal curl
+RUN apt-get install libcurl4 && docker-php-ext-install curl
+
 # Xdebug
-# RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
+RUN pecl install xdebug-2.8.1 && docker-php-ext-enable xdebug
 
 RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 

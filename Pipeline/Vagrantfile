@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
     end
     srvdev.vm.provision "shell", inline: <<-SHELL
       sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
+      echo -e "password\npassword" | passwd vagrant
+      echo -e "password\npassword" | passwd root
       sudo systemctl restart sshd
     SHELL
     if Vagrant.has_plugin?("vagrant-cachier")
@@ -25,4 +27,3 @@ Vagrant.configure("2") do |config|
   end
 
 end
-

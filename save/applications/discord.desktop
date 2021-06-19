@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Discord
+Comment=discord
+GenericName=Discord
+Exec=/home/ritelg/tools/Discord/Discord
+Icon=/home/ritelg/tools/Discord/discord.png
+Type=Application
+StartupNotify=false
+StartupWMClass=Code
+Categories=Utility;Network;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=discord;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/home/ritelg/tools/Discord/Discord
+Icon=/home/ritelg/tools/Discord/discord.png
+

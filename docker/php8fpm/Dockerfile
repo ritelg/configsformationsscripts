@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:8.0-fpm
 
 RUN apt-get update 
 RUN apt-get install -y \
@@ -47,7 +47,26 @@ RUN apt-get -y install exiftool \
 # Xdebug
 RUN pecl install xdebug-3.0.0 && docker-php-ext-enable xdebug
 
+# opcache
+RUN docker-php-ext-enable opcache
+
+# Unzip
+RUN apt-get install -y unzip
+
+RUN apt-get install -y \
+     libxml2-dev \
+  && apt-get clean -y \
+  && docker-php-ext-install soap    
+
+RUN apt-get update
+RUN apt-get install -y libzip-dev zlib1g-dev chromium chromium-driver
+ENV PANTHER_CHROME_DRIVER_BINARY /usr/bin/chromedriver
+ENV PANTHER_NO_SANDBOX 1
+ENV PANTHER_CHROME_BINARY /usr/bin/chromium
+
 RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+RUN apt-get install -y graphviz
 
 ADD xdebug.ini /usr/local/etc/php/conf.d/
 

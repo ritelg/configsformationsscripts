@@ -15,7 +15,8 @@ if [ "$1" == "" ] || [ "$1" == "--help" ];then
 		--clean_null_images : Suprime les images null
 		--clean_images : Surpime tous les containers, les reseaux, les volumes
 		--info : Affiche cette aide
-		--php : Lance un container avec php7.4 et composer
+		--php8 : Lance un container avec php8 et composer
+		--php7 : Lance un container avec php7.4 et composer
 		--rm-php : Suprime le container php
 
 		--create : lancer des conteneurs
@@ -25,6 +26,8 @@ if [ "$1" == "" ] || [ "$1" == "--help" ];then
 		--ansible : déploiement arborescence ansible
 		
 		--jekyll: Lance un container jekyll
+
+		--portainer: Lance un container portainer, pour gerer les images, containers, ...etc
 	"
 fi
 
@@ -200,10 +203,22 @@ if [ "$1" == "--clean_null_images" ];then
 	cleanNullImages
 fi
 
-if [ "$1" == "--php" ];then
+if [ "$1" == "--php8" ];then
 	if [ `docker ps | grep ritelg-php | wc -l` == 0 ]; then
 		echo "  => Creation du containeur php"
-		docker run -tid --workdir /var/www -v ${PWD}:/var/www --name ${USER}-php ritelg/php:7.4-v1.1-xdebug
+		docker run -tid --workdir /var/www -v ${PWD}:/var/www --name ${USER}-php ritelg/php:8-fpm-v1.1-xdebug
+		echo "  => création de l'utilisateur ${USER}"
+		docker exec -ti ${USER}-php /bin/bash -c "useradd -m -p sa3tHJ3/KuYvI ${USER}"
+		docker exec -ti ${USER}-php /bin/bash -c "echo '${USER}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
+	fi
+	docker exec --user ${USER} -it ${USER}-php fish
+fi
+
+
+if [ "$1" == "--php7" ];then
+	if [ `docker ps | grep ritelg-php | wc -l` == 0 ]; then
+		echo "  => Creation du containeur php"
+		docker run -tid --workdir /var/www -v ${PWD}:/var/www --name ${USER}-php ritelg/php:7.4-fpm-v1.1-xdebug
 		echo "  => création de l'utilisateur ${USER}"
 		docker exec -ti ${USER}-php /bin/bash -c "useradd -m -p sa3tHJ3/KuYvI ${USER}"
 		docker exec -ti ${USER}-php /bin/bash -c "echo '${USER}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
@@ -217,4 +232,8 @@ if [ "$1" == "--rm-php" ] && [ `docker ps | grep ritelg-php | wc -l` == 1 ];then
 	docker rm ${USER}-php
 else
 	echo "Aucun containeur php"
+fi
+
+if ["$1" == "--portainer"]
+	docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 fi
