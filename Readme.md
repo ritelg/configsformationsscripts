@@ -109,6 +109,10 @@ sudo ./build.sh
 
 ****************************
 
+#### Applications 
+
+Le dossier des applications est dans /usr/share/applications
+
 ### Formations
 
 * Linux : LPIC1 et LPIC2

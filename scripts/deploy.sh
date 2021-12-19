@@ -37,10 +37,16 @@ createNodes() {
 	[ "$1" != "" ] && nb_machine=$1
 	# setting min/max
 	min=1
-	max=0
+	mmax=0
 
 	# récupération de idmax
-	idmax=`docker ps -a --format '{{ .Names}}' | awk -F "-" -v user="$USER" '$0 ~ user"-debian" {print $3}' | sort -r |head -1`
+	idmax=`docker ps -a --format '{{ .Names}}' | awk -F "-" -v user="$USER" '$0 ~ user"-debian" {print $3}' | sort -r |head -1`					
+	# redéfinition de min et max
+	min=$(($idmax + 1))
+	max=$(($idmax + $ax=0
+
+	# récupération de idmax
+	idmax=`docker ps -a --format '{{ .Names}}' | awk -F "-" -v user="$USER" '$0 ~ user"-debian" {print $3}' | sort -r |head -1`					
 	# redéfinition de min et max
 	min=$(($idmax + 1))
 	max=$(($idmax + $nb_machine))

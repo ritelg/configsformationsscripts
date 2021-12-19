@@ -531,4 +531,4 @@ certains intégrés au noyau
 ## Astuces
 
 * Changer de compte utilisateur : sudo -u jenkins -s
-
+* Lister les connexions ouvertes : netstat -ltn

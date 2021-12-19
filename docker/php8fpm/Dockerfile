@@ -1,5 +1,6 @@
 FROM php:8.0-fpm
 
+RUN echo 'test'
 RUN apt-get update 
 RUN apt-get install -y \
       wget \
