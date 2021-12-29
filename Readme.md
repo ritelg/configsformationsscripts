@@ -11,7 +11,12 @@
 4. [Docker et Vagrant et Ansible](#docker-et-Vagrant-et-Ansible)
 
 5. [VSCODE](#vscode)
+
+6. [FISH](#fish)
 ****************************
+
+### Outils
+* fig pour git
 
 ### Scripts
 
@@ -149,3 +154,18 @@ Le dossier des applications est dans /usr/share/applications
 
 ### Config GIT
 * git config --global branch.autosetuprebase always
+
+### Fish
+
+* Liens 
+	* https://github.com/oh-my-fish/oh-my-fish
+	* https://github.com/PatrickF1/fzf.fish 
+
+* Installation de fish et de oh my fish
+* Installation de fzf et du plugin pour fish
+	* omf install https://github.com/PatrickF1/fzf.fish
+	* sudo dnf install fd-find
+* Installation du theme chain
+	* omf install chain
+* Installation des plugins ssh-agent,
+	* omf install https://github.com/zimski/ssh_agent

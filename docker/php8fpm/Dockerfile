@@ -45,8 +45,6 @@ RUN apt-get -y install exiftool \
     && docker-php-ext-install exif \
     && docker-php-ext-enable exif 
 
-# Xdebug
-RUN pecl install xdebug-3.0.0 && docker-php-ext-enable xdebug
 
 # opcache
 RUN docker-php-ext-enable opcache
@@ -59,15 +57,19 @@ RUN apt-get install -y \
   && apt-get clean -y \
   && docker-php-ext-install soap    
 
-RUN apt-get update
-RUN apt-get install -y libzip-dev zlib1g-dev chromium chromium-driver
-ENV PANTHER_CHROME_DRIVER_BINARY /usr/bin/chromedriver
-ENV PANTHER_NO_SANDBOX 1
-ENV PANTHER_CHROME_BINARY /usr/bin/chromium
+# RUN apt-get update
+# RUN apt-get install -y libzip-dev zlib1g-dev chromium chromium-driver
+# ENV PANTHER_CHROME_DRIVER_BINARY /usr/bin/chromedriver
+# ENV PANTHER_NO_SANDBOX 1
+# ENV PANTHER_CHROME_BINARY /usr/bin/chromium
 
+
+RUN apt-get install -y sudo 
 RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-RUN apt-get install -y graphviz
-
+# RUN apt-get install -y graphviz
+RUN pecl install xdebug
 ADD xdebug.ini /usr/local/etc/php/conf.d/
+ADD php.ini /usr/local/etc/php/conf.d/
 
+RUN docker-php-ext-enable xdebug

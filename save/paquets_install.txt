@@ -42,7 +42,7 @@ sshpass
 thunar 
 tmux 
 vim 
-vim zsh 
+vim 
 wget 
 wireless-tools-devel 
 xcb-proto 
@@ -51,5 +51,5 @@ xcb-util-devel
 xcb-util-image-devel 
 xcb-util-wm-devel 
 xcb-util-xrm-devel 
-zsh 
 lshw
+fish
