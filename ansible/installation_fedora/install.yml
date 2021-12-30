@@ -1,0 +1,16 @@
+---
+- name: Installation de la machine locale
+  hosts: localhost
+  connection: local 
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+  - include_vars:
+      file: vars.yml
+
+
+  - include_role:
+      name: "{{ item }}"
+    with_items:
+      - init
+...

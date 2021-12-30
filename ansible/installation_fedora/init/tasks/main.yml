@@ -1,0 +1,15 @@
+---
+# tasks file for init
+- name: APT | Update & Upgrade
+  become: yes
+  dnf: 
+    name:
+      - vim
+      - the_silver_searcher
+      - fish
+      - ranger
+      - tig
+      - git
+      - ripgrep
+    state: present
+    update_cache: true

@@ -1,0 +1,6 @@
+alias genSshKey='ssh-keygen -t rsa -b 4096 -f '
+alias sshAdd='eval "$(ssh-agent -s)" && ssh-add'
+# alias doc='zeal'
+# alias parametres="XDG_CURRENT_DESKTOP=GNOME; gnome-control-center"
+alias docker_deleteAllContainers='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+alias listMonitors="randr -q | grep  connected | cut -d ' ' -f1"

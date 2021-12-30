@@ -1,6 +1,7 @@
 abbr genSshKey 'ssh-keygen -t rsa -b 4096 -f'
-
 abbr promise-it-wont-hurt 'docker run -it -v $(pwd):/root oreng/promises-workshop'
+
+alias composer='docker run -ti --rm --workdir /var/www -v $PWD:/var/www docker_php composer'
 
 set -x EDITOR /usr/bin/vim
 
@@ -41,7 +42,6 @@ fish_vi_key_bindings
 
 # config.fish
 
-# Racourcis FZF 
-fzf_configure_bindings --directory=\,f
-
-alias composer='docker run -ti --rm --workdir /var/www -v $PWD:/var/www docker_php composer'
+# FZF 
+fzf_configure_bindings --directory=\,f --variables=\,v --history=\,h 
+set -x FZF_DEFAULT_COMMAND 'fd --hidden --exclude node_modules --exclude vendor --exclude .git'
