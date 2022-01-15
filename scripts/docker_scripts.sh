@@ -28,7 +28,9 @@ if [ "$1" == "" ] || [ "$1" == "--help" ];then
 		--jekyll: Lance un container jekyll
 
 		--portainer: Lance un container portainer, pour gerer les images, containers, ...etc
-	"
+
+		--fedora-systemd: Lance un conteneur fedora 35 avec systemd
+		--debian-systemd: Lance un conteneur debian avec systemd (NE FONCTIONNE PAS) "
 fi
 
 createNodes() {
@@ -188,7 +190,7 @@ fi
 
 if [ "$1" == "--clean_all" ];then
 	if [ `docker ps -aq | wc -l` == 0 ] && [ `docker volume ls -q | wc -l` == 0 ] && [ `docker network ls -q | wc -l` == 0 ];then
-		echo 'Aucun Reeaux, Containers, Volumes'
+		echo 'Aucun réseaux, Containers, Volumes'
 	else
 		docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 		docker volume prune -f
@@ -224,6 +226,7 @@ if [ "$1" == "--php7" ];then
 		docker exec -ti ${USER}-php /bin/bash -c "echo '${USER}   ALL=(ALL) NOPASSWD: ALL'>>/etc/sudoers"
 	fi
 	docker exec --user ${USER} -it ${USER}-php fish
+
 fi
 
 if [ "$1" == "--rm-php" ] && [ `docker ps | grep ritelg-php | wc -l` == 1 ];then
@@ -238,3 +241,9 @@ if ["$1" == "--portainer"]; then
 	echo "Création du container portainer"
 	docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 fi
+
+if ["$1" == "--fedora-systemd"]; then
+	echo "Création du container fedora avec systemd"
+	docker run --tty  --privileged --name=fedora-systemd  --volume /sys/fs/cgroup:/sys/fs/cgroup:ro ritelg/fedora:35-systemd
+fi
+

@@ -80,7 +80,6 @@ sudo yum install i3 rofi rxvt-unicode thunar compton fontawesome-fonts ranger fo
     Icon=/home/ritelg/AppsTar/Phpstorm/bin/phpstorm.png
 ```
 
-
 ```
 sudo yum install -y \
         @development-tools \
@@ -184,3 +183,14 @@ Le dossier des applications est dans /usr/share/applications
 ### VIM
 * Dotfiles :
 	* https://github.com/Chewie/dotfiles
+
+## Configuration de docker pour ansible
+  
+* https://dangibbs.uk/blog/running-systemd-docker-containers-archlinux/
+
+Avant de pouvoir executer des conteneurs docker avec systemd il faut ajouter des lignes dans /etc/default/grub et lancer grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+# /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT=""
+GRUB_CMDLINE_LINUX="quiet systemd.unified_cgroup_hierarchy=0"
+```
