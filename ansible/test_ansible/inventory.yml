@@ -1,0 +1,5 @@
+web:
+  hosts:
+    172.17.0.2:
+  vars:
+    user: "Gaëtan Ritel"

@@ -1,5 +1,9 @@
 *.log*
-*.idea*
+*.idea
 .git
 scripts/access_token.txt
+*node_modules*
+.app_desktops
+*.vagrant*
+
 .

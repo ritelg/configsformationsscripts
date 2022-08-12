@@ -1,0 +1,53 @@
+" Actions phpstorm :  https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+" Examples ideavimrc
+"   https://gist.github.com/dewaka/ef947e52767bf453eaf77c852051eb7e
+
+
+
+set surround
+set commentary
+
+set ctrlp
+set NERDTree
+set multiple-cursors
+" Copier dans le presse papier du system
+set clipboard+=unnamed
+
+let mapleader=","
+nmap <leader>n :NERDTreeToggle<CR>
+
+" mappings and options that exist only in IdeaVim
+map <leader>f <Action>(GotoFile)
+nmap <leader>F <Action>(GotoAction)
+nmap <leader>O <Action>(GotoSymbol)
+nmap <leader>g <Action>(FindInPath)
+nmap <leader>b <Action>(Switcher)
+nmap <leader>e <Action>(RecentFiles)
+nmap <leader>; <Action>(FileStructurePopup)
+
+nmap <leader>j <C-W>j
+nmap <leader>k <C-W>k
+nmap <leader>h <C-W>h
+nmap <leader>l <C-W>l
+
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+" if &ide =~? 'intellij idea'
+"   if &ide =~? 'community'
+"     " some mappings and options for IntelliJ IDEA Community Edition
+"   elseif &ide =~? 'ultimate'
+"     " some mappings and options for IntelliJ IDEA Ultimate Edition
+"   endif
+" elseif &ide =~? 'pycharm'
+"   " PyCharm specific mappings and options
+" endif

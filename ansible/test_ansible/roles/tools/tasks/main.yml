@@ -1,0 +1,4 @@
+---
+- name: Installation de powershell
+  include: "powershell.yml"
+    

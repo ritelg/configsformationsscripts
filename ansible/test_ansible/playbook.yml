@@ -1,0 +1,9 @@
+---
+- name: Installation du serveur
+  hosts: web
+  become: true
+  tasks:
+  - include_role:
+      name: "{{ item }}"
+    with_items:
+      - tools

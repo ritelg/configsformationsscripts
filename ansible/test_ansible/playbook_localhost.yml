@@ -1,0 +1,9 @@
+- name: Installation du serveur
+  hosts: 127.0.0.1
+  connection: local
+  become: true
+  tasks:
+  - include_role:
+      name: "{{ item }}"
+    with_items:
+      - tools
