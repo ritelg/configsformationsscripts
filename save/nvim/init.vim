@@ -5,3 +5,4 @@ source ~/.vimrc
 if has('nvim')
 	tnoremap <ESC> <C-\><C-n>
 endif
+autocmd TermOpen * setlocal nonumber norelativenumber
