@@ -21,10 +21,12 @@ nnoremap <M-l>    :vertical resize +2<CR>
 "nnoremap <C-c> <Esc>
 " <TAB>: completion.
 "inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <leader>, <C-y>
+
 
 " Better tabbing
-vnoremap < <gv
-vnoremap > >gv
+"vnoremap < <gv
+"vnoremap > >gv
 
 " Deplacer splits
 nmap <leader>J <C-W>J
