@@ -1,9 +1,12 @@
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
 abbr genSshKey 'ssh-keygen -t rsa -b 4096 -f'
 abbr promise-it-wont-hurt 'docker run -it -v $(pwd):/root oreng/promises-workshop'
 
 alias composer='docker run -ti --rm --workdir /var/www -v $PWD:/var/www docker_php composer'
 
-set -x EDITOR /usr/bin/vim
+set -x EDITOR /usr/bin/nvim
 
 set -x JAVA_HOME $HOME/tools/java/jdk-15
 set -x MAVEN_HOME $HOME/tools/maven/apache-maven-3.8.1
@@ -22,6 +25,8 @@ set -x PATH $PATH $ANDROID_STUDIO_HOME/bin
 set -x PATH $PATH $PATH_ANDROID_SDK
 set -x PATH $PATH $GRADLE_HOME/bin
 
+set -x PATH $PATH $HOME/tools/node/bin
+
 set -x PATH $PATH $HOME/.npm-global/bin
 
 set -x PATH $PATH $HOME/bin
@@ -38,10 +43,12 @@ set -x PATH $PATH $HOME/bin
 #eval (ssh-agent -c)
 
 fish_default_key_bindings
-fish_vi_key_bindings
+#fish_vi_key_bindings
 
 # config.fish
 
 # FZF 
-fzf_configure_bindings --directory=\,f --variables=\,v --history=\,h 
-set -x FZF_DEFAULT_COMMAND 'fd --hidden --exclude node_modules --exclude vendor --exclude .git'
+
+#set -x FZF_DEFAULT_COMMAND 'fd --hidden --exclude node_modules --exclude vendor --exclude .git' --exclude .database --exclude .env --exclude .formation --exclude .environement --exclude .crm
+fzf_configure_bindings --directory=\,f --variables=\,v --history=\,h  --git_log=\,l --git_status=\,s
+
