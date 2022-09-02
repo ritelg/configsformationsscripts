@@ -11,4 +11,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'airblade/vim-rooter'
   Plug 'mhinz/vim-startify'
   Plug 'mhinz/vim-signify'
+  Plug 'arnaud-lb/vim-php-namespace'
+  Plug 'nelsyeung/twig.vim'
 call plug#end()

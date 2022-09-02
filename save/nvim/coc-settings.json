@@ -3,5 +3,7 @@
   "coc.preferences.formatOnSaveFiletypes": ["markdown", "javascript", "html", "typescript"],
   "explorer.icon.enableNerdfont": true, 
   "explorer.file.showHiddenFiles": true,
-  "suggest.noselect": false
+  "suggest.noselect": false,
+  "emmet.includeLanguages": {"scss":"css", "sass": "css", "html.twig": "html", "twig": "html", "*.twig": "html", "html.twig.js.css": "html"}
+
 }
