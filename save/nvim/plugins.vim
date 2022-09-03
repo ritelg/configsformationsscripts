@@ -14,4 +14,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   "Plug 'arnaud-lb/vim-php-namespace'
   Plug 'nelsyeung/twig.vim'
   Plug 'mattn/emmet-vim'
+  Plug 'github/copilot.vim'
 call plug#end()

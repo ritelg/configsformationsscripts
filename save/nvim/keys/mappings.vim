@@ -53,3 +53,6 @@ nmap <leader>te :sp \| term<CR>
 " Autocompletion
 imap <leader>c <C-x><C-o>
 imap <leader>C <C-x><C-f>
+
+" Reformater le code
+imap <leader>== gg=G
