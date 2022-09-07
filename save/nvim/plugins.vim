@@ -15,4 +15,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'nelsyeung/twig.vim'
   Plug 'mattn/emmet-vim'
   Plug 'github/copilot.vim'
+  Plug 'tpope/vim-commentary'
 call plug#end()
