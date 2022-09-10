@@ -16,4 +16,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'mattn/emmet-vim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-commentary'
+  Plug 'preservim/tagbar'
 call plug#end()

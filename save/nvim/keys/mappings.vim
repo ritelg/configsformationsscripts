@@ -56,3 +56,5 @@ imap <leader>C <C-x><C-f>
 
 " Reformater le code
 imap <leader>== gg=G
+
+nmap <leader>tt :TagbarToggle<CR>
