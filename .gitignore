@@ -6,4 +6,6 @@ scripts/access_token.txt
 .app_desktops
 *.vagrant*
 
-.
+ansible/test_ansible/.environement/
+ansible/TutoAnsible/.vagrant/
+save/.vim/
