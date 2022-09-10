@@ -8,4 +8,3 @@ scripts/access_token.txt
 
 ansible/test_ansible/.environement/
 ansible/TutoAnsible/.vagrant/
-save/.vim/

@@ -17,4 +17,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-commentary'
   Plug 'preservim/tagbar'
+  " Plug 'ziontee113/color-picker.nvim'
+  Plug 'lilydjwg/colorizer'
+  Plug 'KabbAmine/vCoolor.vim'
 call plug#end()
