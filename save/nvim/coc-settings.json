@@ -4,6 +4,6 @@
   "explorer.icon.enableNerdfont": true, 
   "explorer.file.showHiddenFiles": true,
   "suggest.noselect": false,
-  "emmet.includeLanguages": {"scss":"css", "sass": "css", "html.twig": "html", "twig": "html", "*.twig": "html", "html.twig.js.css": "html"}
+  "emmet.includeLanguages": {"scss":"css", "sass": "css",  "markdown": "html", "html.twig": "html", "twig": "html", "*.twig": "html", "html.twig.js.css": "html"}
 
 }
