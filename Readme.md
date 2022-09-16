@@ -13,6 +13,9 @@
 5. [VSCODE](#vscode)
 
 6. [FISH](#fish)
+
+7. [NVIM](#neovim)
+
 ****************************
 
 ### Outils
@@ -194,3 +197,7 @@ Avant de pouvoir executer des conteneurs docker avec systemd il faut ajouter des
 GRUB_CMDLINE_LINUX_DEFAULT=""
 GRUB_CMDLINE_LINUX="quiet systemd.unified_cgroup_hierarchy=0"
 ```
+
+### Neovim
+
+Snippets dans .config/coc/
