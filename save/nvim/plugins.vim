@@ -16,8 +16,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'mattn/emmet-vim'
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-commentary'
-  Plug 'preservim/tagbar'
-  " Plug 'ziontee113/color-picker.nvim'
-  Plug 'lilydjwg/colorizer'
-  Plug 'KabbAmine/vCoolor.vim'
+  "Plug 'mte90/coq_wordpress', {'do': './install.sh'}
+  Plug 'aklt/plantuml-syntax'
+  Plug 'weirongxu/plantuml-previewer.vim'
+  Plug 'tyru/open-browser.vim'
 call plug#end()
