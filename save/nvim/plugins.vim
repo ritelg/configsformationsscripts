@@ -20,4 +20,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'aklt/plantuml-syntax'
   Plug 'weirongxu/plantuml-previewer.vim'
   Plug 'tyru/open-browser.vim'
+  Plug 'preservim/tagbar'
+  Plug 'dhruvasagar/vim-marp'
+  Plug 'lilydjwg/colorizer'
+  Plug 'KabbAmine/vCoolor.vim'
 call plug#end()
