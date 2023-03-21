@@ -2,7 +2,7 @@
 
 #### Le code pour NVIM est à présent sur une branche sépare**
 
-``````mermaid
+```mermaid
 graph TD;
    flowchart TD
     A[Christmas] -->|Get money| B(Go shopping)
