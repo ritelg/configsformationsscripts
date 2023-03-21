@@ -24,4 +24,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'dhruvasagar/vim-marp'
   Plug 'lilydjwg/colorizer'
   Plug 'KabbAmine/vCoolor.vim'
+  " Plug 'tibabit/vim-templates'
+ Plug 'dinhhuy258/vim-database', {'branch': 'master', 'do': ':UpdateRemotePlugins'}
 call plug#end()

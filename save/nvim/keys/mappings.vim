@@ -58,3 +58,4 @@ imap <leader>C <C-x><C-f>
 imap <leader>== gg=G
 
 nmap <leader>tt :TagbarToggle<CR>
+nmap <leader>to :CocOutline<CR>

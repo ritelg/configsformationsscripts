@@ -9,4 +9,7 @@ let g:copilot_filetypes = {
       \ 'scss': v:true,
       \ 'python': v:true,
       \ 'cpp': v:true,
+      \ 'jsx': v:true,
+      \ 'typescriptreact': v:true,
+      \ 'typescript': v:true,
       \}
