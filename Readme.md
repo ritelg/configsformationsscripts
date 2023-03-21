@@ -1,6 +1,14 @@
 # Scripts, Configs, Formations, Docker
 
-#### **[color=#f0f]Le code pour NVIM est à présent sur une branche sépare[/color]**
+#### [color=#00ffff]Le code pour NVIM est à présent sur une branche sépare[/color]**
+
+``````mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 
 ****************************
 
