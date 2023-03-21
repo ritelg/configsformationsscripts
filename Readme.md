@@ -1,13 +1,16 @@
 # Scripts, Configs, Formations, Docker
 
-#### [color=#00ffff]Le code pour NVIM est à présent sur une branche sépare[/color]**
+#### Le code pour NVIM est à présent sur une branche sépare**
 
 ``````mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+   flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
+  
 ```
 
 ****************************
