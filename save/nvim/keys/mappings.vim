@@ -19,7 +19,7 @@ nnoremap <M-l>    :vertical resize +2<CR>
 "nnoremap <C-Q> :wq!<CR>
 " Use control-c instead of escape
 "nnoremap <C-c> <Esc>
-" <TAB>: completion.
+" <TAB>: complétion.
 "inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 "inoremap <leader>, <C-y>
 
@@ -28,13 +28,13 @@ nnoremap <M-l>    :vertical resize +2<CR>
 "vnoremap < <gv
 "vnoremap > >gv
 
-" Deplacer splits
+" Déplacer Split
 nmap <leader>J <C-W>J
 nmap <leader>K <C-W>K
 nmap <leader>H <C-W>H
 nmap <leader>L <C-W>L
 
-" Navigate splits
+" Navigation splits
 nmap <leader>j <C-W>j
 nmap <leader>k <C-W>k
 nmap <leader>h <C-W>h
@@ -50,12 +50,22 @@ nnoremap <leader>v <c-v>
 
 nmap <leader>te :sp \| term<CR>
 
-" Autocompletion
+" Auto complétion 
 imap <leader>c <C-x><C-o>
 imap <leader>C <C-x><C-f>
 
-" Reformater le code
+" Formater le code
 imap <leader>== gg=G
 
-nmap <leader>tt :TagbarToggle<CR>
-nmap <leader>to :CocOutline<CR>
+" nmap <leader>tt :TagbarToggle<CR>
+nmap <leader>tt :CocOutline<CR>
+
+" Correction orthographique
+nnoremap <silent> <F12> :set spell!<CR>
+inoremap <silent> <F12> <C-O>:set spell!<CR>
+
+" Dans le mode INSERT, tapez Ctrl+x suivi de s, juste après le mot, ensuite Ctrl+p et Ctrl+n pour
+" précédent  et suivant.
+
+" Change avec la première proposition. 
+inoremap <leader>s <C-x>s 

@@ -47,3 +47,6 @@ cmap w!! w !sudo tee %
 " Suprimme les numéro de lignes dans le terminal
 autocmd TermOpen * setlocal nonumber norelativenumber
 
+set spelllang=fr
+set spellsuggest=best,9
+
