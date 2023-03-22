@@ -1,0 +1,23 @@
+{
+  "explorer.width": 30,
+  "coc.preferences.formatOnSave": [
+    "markdown",
+    "javascript",
+    "html",
+    "typescript"
+  ],
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.source": "vim-devicons",
+  "explorer.file.showHiddenFiles": true,
+  "suggest.noselect": false,
+  "explorer.file.reveal.auto": true,
+  "emmet.includeLanguages": {
+    "scss": "css",
+    "sass": "css",
+    "markdown": "html",
+    "html.twig": "html",
+    "twig": "html",
+    "*.twig": "html",
+    "html.twig.js.css": "html"
+  }
+}
