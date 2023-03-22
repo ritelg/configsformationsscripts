@@ -8,7 +8,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-  Plug 'airblade/vim-rooter'
+  "Plug 'airblade/vim-rooter'
   Plug 'mhinz/vim-startify'
   Plug 'mhinz/vim-signify'
   "Plug 'arnaud-lb/vim-php-namespace'
@@ -17,8 +17,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'github/copilot.vim'
   Plug 'tpope/vim-commentary'
   "Plug 'mte90/coq_wordpress', {'do': './install.sh'}
-  Plug 'aklt/plantuml-syntax'
-  Plug 'weirongxu/plantuml-previewer.vim'
+  "Plug 'aklt/plantuml-syntax'
+  "Plug 'weirongxu/plantuml-previewer.vim'
   Plug 'tyru/open-browser.vim'
   Plug 'preservim/tagbar'
   Plug 'dhruvasagar/vim-marp'

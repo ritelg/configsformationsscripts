@@ -14,5 +14,5 @@ source $HOME/.config/nvim/plug-config/project-start.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/copilot.vim
 source $HOME/.config/nvim/plug-config/snippet.vim
-source $HOME/.config/nvim/plug-config/plantuml.vim
+"source $HOME/.config/nvim/plug-config/plantuml.vim
 " source $HOME/.config/nvim/templates.vim
