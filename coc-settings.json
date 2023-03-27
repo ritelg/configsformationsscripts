@@ -1,0 +1,18 @@
+{
+  "explorer.width": 30,
+  "coc.preferences.formatOnSaveFiletypes": ["markdown", "javascript", "html", "typescript"],
+  "explorer.icon.enableNerdfont": true, 
+  "explorer.file.showHiddenFiles": true,
+  "suggest.noselect": false,
+  "emmet.includeLanguages": {
+    "scss": "css",
+    "sass": "css",
+    "markdown": "html",
+    "html.twig": "html",
+    "twig": "html",
+    "*.twig": "html",
+    "html.twig.js.css": "html"
+  },
+  "snippets.ultisnips.pythonPrompt": false,
+  "snippets.userSnippetsDirectory": "/home/ritelg/.config/nvim/ultisnips"
+}
