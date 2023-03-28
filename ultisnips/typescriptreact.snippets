@@ -53,3 +53,21 @@ export async function getStaticPaths(context) {
 	}
 }
 endsnippet
+
+snippet test_jest "Architecture de base d’un test Jest" b
+describe('$1', () => {
+	it('$2', () => {
+		$3
+	})
+})
+endsnippet
+
+snippet test_playwright "Architecture de base pour playwright" b
+import {render, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
+
+
+test('$1', async function ({page}) {
+	await page.goto('/')
+})
+endsnippet
