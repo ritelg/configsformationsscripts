@@ -28,4 +28,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'dinhhuy258/vim-database', {'branch': 'master', 'do': ':UpdateRemotePlugins'}
   "Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
   Plug 'pearofducks/ansible-vim'
+  Plug 'Yggdroot/indentLine'
 call plug#end()

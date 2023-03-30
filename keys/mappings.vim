@@ -69,3 +69,4 @@ inoremap <silent> <F12> <C-O>:set spell!<CR>
 
 " Change avec la première proposition. 
 inoremap <leader>s <C-x>s 
+

@@ -50,3 +50,33 @@ autocmd TermOpen * setlocal nonumber norelativenumber
 set spelllang=fr
 set spellsuggest=best,9
 
+" Trouver tous les documents de maniere recursive 
+set path+=** 
+
+" Ouvrir un menu de recherche de fichier 
+set wildmenu
+set wildmode=list:full
+set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk,*/vendor/,*/.git/,*/.next/,*/.swc/,*/build/,*/autoload/*,
+
+"set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow 
+set grepformat^=%f:%l:%c:%m
+
+" Ouvre automatiquement la quickfix list quand on appelle grep
+" create a self-clearing autocommand group called 'qf'
+augroup qf
+    " clear all autocommands in this group
+    autocmd!
+
+    " do :cwindow if the quickfix command doesn't start
+    " with a 'l' (:grep, :make, etc.)
+    autocmd QuickFixCmdPost [^l]* cwindow
+
+    " do :lwindow if the quickfix command starts with
+    " a 'l' (:lgrep, :lmake, etc.)
+    autocmd QuickFixCmdPost l*    lwindow
+
+    " do :cwindow when Vim was started with the '-q' flag
+    autocmd VimEnter        *     cwindow
+
+augroup END
