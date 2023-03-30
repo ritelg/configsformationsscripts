@@ -169,3 +169,9 @@ let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 "imap <C-Space> <Plug>(coc-snippets-expand)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+
+let g:coc_filetype_map = {
+  \ 'yaml.ansible': 'ansible',
+  \ 'ansible.yaml': 'ansible',
+  \ }

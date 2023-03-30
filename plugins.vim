@@ -25,5 +25,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'lilydjwg/colorizer'
   Plug 'KabbAmine/vCoolor.vim'
   " Plug 'tibabit/vim-templates'
- Plug 'dinhhuy258/vim-database', {'branch': 'master', 'do': ':UpdateRemotePlugins'}
+  Plug 'dinhhuy258/vim-database', {'branch': 'master', 'do': ':UpdateRemotePlugins'}
+  "Plug 'pearofducks/ansible-vim', { 'do': './UltiSnips/generate.sh' }
+  Plug 'pearofducks/ansible-vim'
 call plug#end()
