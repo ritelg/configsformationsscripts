@@ -11,8 +11,17 @@
     "html.twig": "html",
     "twig": "html",
     "*.twig": "html",
-    "html.twig.js.css": "html"
+    "html.twig.js.css": "html",
+    "*.ejs": "html",
+    "ejs": "html"
   },
+  "html.filetypes": [
+    "html",
+    "handlebars",
+    "htmldjango",
+    "blade",
+    "ejs"
+  ],
   "snippets.ultisnips.pythonPrompt": false,
   "snippets.userSnippetsDirectory": "/home/ritelg/.config/nvim/ultisnips"
 }

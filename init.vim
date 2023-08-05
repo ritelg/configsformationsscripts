@@ -9,7 +9,8 @@ source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/themes/theme.vim
 source $HOME/.config/nvim/themes/airline.vim
 
-source $HOME/.config/nvim/plug-config/fzf.vim
+"source $HOME/.config/nvim/plug-config/fzf.vim
+source $HOME/.config/nvim/plug-config/ctrlp.vim
 source $HOME/.config/nvim/plug-config/project-start.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/copilot.vim

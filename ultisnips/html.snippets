@@ -24,28 +24,10 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet test_playwright "Architecture de test playwright" b
-import {test, expect} from '@playwright/test'
-
-test('$1', async function ({page}) {
-	await page.goto('/')
-})
+snippet ejs_show "<%= %>" b
+<%= $1 %>
 endsnippet
 
-snippet test_jest "Architecture de test jest" b
-describe('$1', () => {
-	it('$2', () => {
-		$3
-	})
-})
-endsnippet
-
-snippet controller_express "Controller express" b
-import {Request, Response} from "express"
-
-export default class $1 {
-	static index(req: Request, res: Response) {
-		res.send('')
-	}
-}
+snippet ejs_func "<%- %>" b
+<%- $1 %>
 endsnippet
