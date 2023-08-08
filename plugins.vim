@@ -31,6 +31,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'Yggdroot/indentLine'
   "Plug 'mfussenegger/nvim-dap'
   Plug 'puremourning/vimspector'
-  Plug 'vim-vdebug/vdebug'
+  "Plug 'vim-vdebug/vdebug'
   Plug 'kien/ctrlp.vim'
+  Plug 'folke/tokyonight.nvim'
 call plug#end()
