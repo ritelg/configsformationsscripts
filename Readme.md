@@ -178,6 +178,8 @@ Le dossier des applications est dans /usr/share/applications
 	* omf install chain
 * Installation des plugins ssh-agent,
 	* omf install https://github.com/zimski/ssh_agent
+* Installation de tmux et du Plugin Manager pour installer (tmux-resurect, ..), configuration de tmux : ~/.tmux.conf
+  * https://github.com/tmux-plugins/tpm
 ### Ranger 
 * Installation : 
 	* sudo dnf install ranger fzf findutils mlocate
@@ -203,3 +205,6 @@ GRUB_CMDLINE_LINUX="quiet systemd.unified_cgroup_hierarchy=0"
 ### Neovim
 
 Snippets dans .config/coc/
+
+
+
