@@ -1,6 +1,5 @@
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
-RUN echo 'test'
 RUN apt-get update 
 RUN apt-get install -y \
       wget \
@@ -28,9 +27,7 @@ RUN apt-get install -y zlib1g-dev libicu-dev g++ \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 # Symfony tool
-RUN wget https://get.symfony.com/cli/installer -O - | bash && \
-  mv /root/.symfony/bin/symfony /usr/local/bin/symfony
-
+RUN wget https://get.symfony.com/cli/installer -O - | bash 
 # Install GD
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
@@ -64,12 +61,18 @@ RUN apt-get install -y \
 # ENV PANTHER_CHROME_BINARY /usr/bin/chromium
 
 
-RUN apt-get install -y sudo 
-RUN echo 'user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN apt-get install vim -y
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends locales apt-utils git libicu-dev g++ libpng-dev libxml2-dev libzip-dev libonig-dev libxslt-dev;
 
-# RUN apt-get install -y graphviz
-RUN pecl install xdebug
-ADD xdebug.ini /usr/local/etc/php/conf.d/
-ADD php.ini /usr/local/etc/php/conf.d/
 
-RUN docker-php-ext-enable xdebug
+RUN docker-php-ext-install calendar dom mbstring xsl 
+
+RUN pecl install apcu && docker-php-ext-enable apcu
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen
+
+RUN apt-get install -y redis-server \
+    && pecl install redis \
+    && docker-php-ext-enable redis
