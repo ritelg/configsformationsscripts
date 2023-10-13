@@ -1,0 +1,13 @@
+user: ritelg
+paquets_install:
+  - fish
+  - git 
+  - curl
+  - wget
+  - silversearcher-ag
+  - ripgrep
+  - unzip 
+  - tmux
+  - fd-find
+  - gnupg
+  - ca-certificates
