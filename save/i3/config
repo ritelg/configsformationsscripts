@@ -221,3 +221,21 @@ bindsym $mod+r mode "resize"
 # exec_always --no-startup-id "i3bar"
 
 exec_always --no-startup-id "killall polybar;polybar -r left & polybar -r right"
+
+
+## Screenshots
+# Full screen
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+# Active Window
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+# Selection
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+## Clipboard Screenshots
+# Full screen
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+# Active Window
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# Selection
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
