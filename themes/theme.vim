@@ -11,8 +11,12 @@ let g:onedark_hide_endofbuffer=1
 let g:onedark_terminal_italics=1
 let g:onedark_termcolors=256
 
+" let g:tokyonight_style = 'storm'
+" let g:tokyonight_italic_functions = true
+" let g:tokyonight_sidebars = [ 'quickfix', '__vista__', 'terminal' ]
+
 syntax on
-colorscheme tokyonight
+colorscheme onedark
 
 
 " checks if your terminal has 24-bit color support

@@ -34,4 +34,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   "Plug 'vim-vdebug/vdebug'
   Plug 'kien/ctrlp.vim'
   Plug 'folke/tokyonight.nvim'
+  Plug 'Mofiqul/dracula.nvim'
 call plug#end()
