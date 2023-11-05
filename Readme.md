@@ -11,3 +11,5 @@ salut les gens
     ```
     set filetype=yaml.ansible
     ````
+## Commandes vim-database non disponibles
+* Lancer commande :UpdateRemotePlugins
