@@ -41,6 +41,7 @@ LABELS=(
   "Low,5CB85C,Label for low priority"
   "Medium,F0AD4E,Label for medium priority"
   "High,FF0000,Label for medium priority"
+  "CONFIG,8ebc8d,Label for configuration"
 )
 
 # Fonction pour créer un label
