@@ -37,6 +37,7 @@ LABELS=(
   "Sprint,6599c8,Label for issues related to sprints"
   "À déployer en Production,8ebc8d,Label for that are ready to be deployed to production"
   "À déployer en Pré Prod,8ebc8d,Label for that are ready to be deployed to pre-production"
+  "To Do,5CB85C,Label for new tasks"
   "Doing,5CB85C,Label for finishing"
   "Low,5CB85C,Label for low priority"
   "Medium,F0AD4E,Label for medium priority"
