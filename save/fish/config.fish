@@ -3,6 +3,7 @@ if status is-interactive
 end
 abbr genSshKey 'ssh-keygen -t rsa -b 4096 -f'
 abbr promise-it-wont-hurt 'docker run -it -v $(pwd):/root oreng/promises-workshop'
+abbr ssh_agent 'eval (ssh-agent -c)'
 
 alias composer='docker run -ti --rm --workdir /var/www -v $PWD:/var/www docker_php composer'
 
