@@ -24,8 +24,10 @@ RUN apt-get install -y \
       redis-server \
       locales \ 
       apt-utils \ 
-      libxslt-dev
-
+      libxslt-dev \ 
+      zsh \
+      vim \
+      neovim
 
 RUN pecl install redis apcu
 RUN docker-php-ext-install pdo zip pdo_pgsql mysqli pdo_mysql intl opcache soap calendar dom mbstring xsl exif
@@ -43,8 +45,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
-RUN curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
-RUN fish install --path=~/.local/share/omf --config=~/.config/omf --noninteractive
+# RUN curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
+# RUN fish install --path=~/.local/share/omf --config=~/.config/omf --noninteractive
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUN git clone https://github.com/voronkovich/symfony-complete.plugin.zsh ~/.oh-my-zsh/custom/plugins/symfony-complete
+RUN chsh -s $(which zsh)
 
 WORKDIR /var/www
 
