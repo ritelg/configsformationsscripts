@@ -1,0 +1,56 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+
+# Le snip.rv corespond à la sortie
+
+
+global !p
+from datetime import date
+endglobal
+
+snippet entete_sh "Ajoute l’entete pour le bash" b
+#!/bin/bash
+#===============================================================================
+#
+#          FILE: $1
+# 
+#         USAGE: bash $1
+# 
+#   DESCRIPTION: $2
+# 
+#   OPTIONS: 
+#		--help: Affiche l’aide
+#
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: ---
+#        AUTHOR: Gaëtan Ritel, 
+#       CREATED: `!p snip.rv = date.today().strftime("%d/%m/%y")`
+#      REVISION:  
+#===============================================================================
+
+endsnippet

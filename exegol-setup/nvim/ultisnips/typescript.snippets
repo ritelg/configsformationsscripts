@@ -1,0 +1,51 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet test_playwright "Architecture de test playwright" b
+import {test, expect} from '@playwright/test'
+
+test('$1', async function ({page}) {
+	await page.goto('/')
+})
+endsnippet
+
+snippet test_jest "Architecture de test jest" b
+describe('$1', () => {
+	it('$2', () => {
+		$3
+	})
+})
+endsnippet
+
+snippet controller_express "Controller express" b
+import {Request, Response} from "express"
+
+export default class $1 {
+	static index(req: Request, res: Response) {
+		res.send('')
+	}
+}
+endsnippet

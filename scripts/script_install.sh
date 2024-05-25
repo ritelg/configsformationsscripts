@@ -29,43 +29,27 @@ help () {
   "	
 }
 
-update() {
-  sudo apt-get update
-  sudo apt-get dist-upgrade -y
-}
+echo 'Mise à jour du systéme '
+sudo apt-get update
+# sudo apt-get dist-upgrade -y
 
-base_install() {
-	echo 'Installation des packages de bases'
-  sudo apt-get install -y curl vim git fish git-flow tmux pip exuberant-ctags tig htop fd-find silversearcher-ag python3-pynvim ranger ripgrep gnupg rsync make ffmpeg rsync
+echo 'Installation des packages de bases'
+sudo apt-get install -y curl vim git zsh git-flow tmux pip exuberant-ctags tig htop fd-find silversearcher-ag python3-pynvim ranger ripgrep gnupg rsync make ffmpeg neovim 
 
-  echo 'Installation de Nvim et du plugin Vim Plug'
-  mkdir -p ~/.config/nvim
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  wget https://gitlab.com/ritelg/configsformationsscripts/-/archive/nvim-win-debian/configsformationsscripts-nvim-win-debian.zip
-}
-nodejs_install() {
-	echo 'Installation de nodejs'
-	curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | sudo -E bash -
-	sudo apt-get install -y nodejs
-  sudo npm install -g pnpm
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-}
+echo 'Installation de php et composer'
+
+# echo 'Installation de Nvim et du plugin Vim Plug'
+# mkdir -p ~/.config/nvim
+# sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# wget https://gitlab.com/ritelg/configsformationsscripts/-/archive/nvim-win-debian/configsformationsscripts-nvim-win-debian.zip
 
 docker_install() {
-  sudo apt-get update
-  sudo apt-get install ca-certificates curl gnupg
-  sudo install -m 0755 -d /etc/apt/keyrings
-  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-  sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-  # Add the repository to Apt sources:
-  echo \
-    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-  sudo apt-get update
-  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-  sudo groupadd docker
+  sudo apt update
+  sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  sudo apt update
+  sudo apt install -y docker-ce docker-ce-cli containerd.ior
   sudo usermod -aG docker $USER
   newgrp docker
 }
@@ -78,7 +62,6 @@ fi
 
 
 update
-nodejs_install
 base_install
-docker_install
+# docker_install
 
