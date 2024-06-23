@@ -75,6 +75,20 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 
 ### Configs
 
+#### Update NVIDIA
+
+```
+/etc/apt/sources.list
+deb http://deb.debian.org/debian/ bookworm main non-free contrib non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm main non-free contrib non-free-firmware
+
+systemctl isolate multi-user.target : Passer en mode console
+apt update
+apt install nvidia-driver
+reboot
+```
+
+
 #### Commandes
 
 * Obtenir nom fenetre : xprop | grep WM_CLASS

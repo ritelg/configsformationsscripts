@@ -124,8 +124,8 @@ set $ws7 7
 set $ws8 8
 set $ws9 9
 set $ws10 0
-set $moniteurprincipale HDMI-1-0
-set $moniteurhdmi eDP-1 
+set $moniteurprincipale HDMI-1
+set $moniteurhdmi HDMI-2
 #set $moniteursecondaire VGA-1
 
 workspace $ws1 output $moniteurprincipale
@@ -139,6 +139,10 @@ workspace $ws8 output $moniteurhdmi
 
 set $terminal qterminal
 
+assign [class="jetbrains-idea"] $ws10
+assign [class="jetbrains-phpstorm"] $ws10
+assign [class="jetbrains-pycharm-ce"] $ws10
+assign [class="jetbrains-clion"] $ws10
 assign [class="Code"] $ws1
 assign [class="$terminal"] $ws2
 assign [class="Google-chrome"] $ws3
@@ -235,4 +239,3 @@ bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewi
 # Selection
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
-exec_always --no-startup-id "xrandr --output HDMI-1-0 --mode 2560x1440 --output eDP-1 --mode 1920x1200 --right-of HDMI-1-0"
