@@ -45,13 +45,14 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec /home/ritelg/.local/kitty.app/bin/kitty
 
 # kill focused window
 bindsym $mod+Shift+a kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -124,7 +125,7 @@ set $ws7 7
 set $ws8 8
 set $ws9 9
 set $ws10 0
-set $moniteurprincipale HDMI-1-0
+set $moniteurprincipale DP-1-3
 set $moniteurhdmi eDP-1 
 #set $moniteursecondaire VGA-1
 
@@ -137,21 +138,24 @@ workspace $ws6 output $moniteurhdmi
 workspace $ws7 output $moniteurhdmi
 workspace $ws8 output $moniteurhdmi
 
-set $terminal gnome-terminal
+set $terminal /home/ritelg/.local/kitty.app/bin/kitty 
 
 assign [class="Code"] $ws1
 assign [class="$terminal"] $ws2
+assign [class="Gnome-terminal"] $ws2
+assign [class="kitty"] $ws2
 assign [class="Google-chrome"] $ws3
-assign [class="Firefox-esr"] $ws3
+assign [class="firefox-esr"] $ws3
 assign [class="discord"] $ws5
 
 exec --no-startup-id compton
-exec --no-startup-id $terminal
+exec --no-startup-id $terminal -e tmux
 
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+o exec rofi -show combi
 bindsym $mod+t exec rofi -show run
 bindsym $mod+Shift+f exec rofi -show filebrowser
+
 
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
@@ -221,11 +225,11 @@ exec_always --no-startup-id "killall polybar;polybar -r left & polybar -r right"
 
 ## Screenshots
 # Full screen
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym Print exec --no-startup-id maim "/home/$USER/Images/capture-$(date).png"
 # Active Window
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Images/capture-$(date).png"
 # Selection
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Images/capture-$(date).png"
 
 ## Clipboard Screenshots
 # Full screen
@@ -235,4 +239,9 @@ bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewi
 # Selection
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
-exec_always --no-startup-id "xrandr --output HDMI-1-0 --mode 2560x1440 --output eDP-1 --mode 1920x1200 --right-of HDMI-1-0"
+#exec_always --no-startup-id "xrandr --output DP-1-3 --mode 2560x1440 --output eDP-1 --mode 1920x1080 --right-of DP-1-3"
+exec_always --no-startup-id "xrandr --output DP-1-3 --mode 1920x1080 --output eDP-1 --mode 1920x1080 --right-of DP-1-3"
+
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank

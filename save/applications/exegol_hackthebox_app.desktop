@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Exegol Hackthebox App
+Exec=bash "/home/ritelg/Cybersecurity/scripts/exegol-hackthebox-app.sh"
+Type=Application
+Terminal=false
+Icon=utilities-terminal
+Categories=Utility;
+

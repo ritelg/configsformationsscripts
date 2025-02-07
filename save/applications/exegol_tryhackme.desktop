@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Exegol Tryhackme
+Exec=bash "/home/ritelg/Cybersecurity/scripts/exegol-tryhackme.sh"
+Type=Application
+Terminal=false
+Icon=utilities-terminal
+Categories=Utility;
+
