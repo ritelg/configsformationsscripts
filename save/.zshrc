@@ -119,6 +119,10 @@ export NVM_DIR="$HOME/.nvm"
 
 bindkey '^R' fzf-history-widget
 
+set -o vi  # Active le mode Vi
+EDITOR_MODE='vi'
+
+
 toggle-vi-emacs-mode() {
   if [[ $EDITOR_MODE == "vi" ]]; then
     echo "Switching to Emacs mode"
