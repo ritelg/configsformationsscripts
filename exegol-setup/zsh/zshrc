@@ -8,6 +8,12 @@ PROMPT="$LOGGING$TIME_%{$FX[bold]$FG[013]%} $EXEGOL_HOSTNAME %{$fg_bold[blue]%}%
 set -o vi  # Active le mode Vi
 EDITOR_MODE='vi'
 
+# Not working
+# setopt HIST_NO_STORE  
+# unsetopt HIST_APPEND
+# export HISTIGNORE="ls*:bg:fg:exit:clear:cd*:ssh*:pwd:tail*"
+
+
 toggle-vi-emacs-mode() {
   if [[ $EDITOR_MODE == "vi" ]]; then
     echo "Switching to Emacs mode"
