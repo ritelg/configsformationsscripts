@@ -1,0 +1,27 @@
+# Config file dedicated to the user's personal zshrc profile shared between all exegol containers.
+# This file is sourced in /root/.zshrc file.
+# Alternatively, the /opt/my-resources/setup/load_user_setup.sh file can be used to operate the change once (instead of sourcing a file for each zsh instance)
+
+TIME_="%{$fg[white]%}[%{$fg[red]%}%D{%b %d, %Y - %T}%{$fg[white]%}]%{$reset_color%}"
+PROMPT="$LOGGING$TIME_%{$FX[bold]$FG[013]%} $EXEGOL_HOSTNAME %{$fg_bold[blue]%}%(!.%1~.%c) $(prompt_char)%{$reset_color%} "
+
+set -o vi  # Active le mode Vi
+EDITOR_MODE='vi'
+
+# Not working
+# setopt HIST_NO_STORE  
+# unsetopt HIST_APPEND
+# export HISTIGNORE="ls*:bg:fg:exit:clear:cd*:ssh*:pwd:tail*"
+
+
+toggle-vi-emacs-mode() {
+  if [[ $EDITOR_MODE == "vi" ]]; then
+    echo "Switching to Emacs mode"
+    bindkey -e  # Active le mode Emacs
+    EDITOR_MODE="emacs"
+  else
+    echo "Switching to Vi mode"
+    bindkey -v  # Active le mode Vi
+    EDITOR_MODE="vi"
+  fi
+}

