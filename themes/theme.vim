@@ -16,7 +16,8 @@ let g:onedark_termcolors=256
 " let g:tokyonight_sidebars = [ 'quickfix', '__vista__', 'terminal' ]
 
 syntax on
-colorscheme onedark
+"colorscheme tokyonight
+colorscheme duskfox
 
 
 " checks if your terminal has 24-bit color support
