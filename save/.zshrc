@@ -104,6 +104,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # source /home/ritelg/.oh-my-zsh/custom/plugins/symfony-complete/symfony-complete.plugin.zsh
+source ~/.zsh_aliases
 
 # pnpm
 export PNPM_HOME="/home/ritelg/.local/share/pnpm"

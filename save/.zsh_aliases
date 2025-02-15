@@ -1,6 +1,1 @@
-alias genSshKey='ssh-keygen -t rsa -b 4096 -f '
-alias sshAdd='eval "$(ssh-agent -s)" && ssh-add'
-# alias doc='zeal'
-# alias parametres="XDG_CURRENT_DESKTOP=GNOME; gnome-control-center"
-alias docker_deleteAllContainers='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
-alias listMonitors="randr -q | grep  connected | cut -d ' ' -f1"
+alias ipa='ip a | awk '\''BEGIN{print "\n"}/^[0-9]+: /{interface=$2}/inet /{print interface" "$2}END{print "\n"} \'''

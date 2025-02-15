@@ -20,6 +20,10 @@
 
 ---
 
+### Firefox config
+
+* copy userChrome.css dans .mozilla/firefox/6m20r5va.default-esr/chrome/userChrome.css
+
 ### Screenshots
 
 #### Requirements
