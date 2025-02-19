@@ -30,6 +30,9 @@ curl "https://castor.jolicode.com/install" | bash
 
 setxkbmap fr
 
+# Setup GEF for gdb
+bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+
 ################ SETUP ORACLE ################
 
 sudo apt-get install libaio1 python3-dev alien python3-pip python3-scapy -y
