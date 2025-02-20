@@ -20,6 +20,7 @@ apt install python3-neovim ripgrep perl cpanminus -y
 cpanm Neovim::Ext
 
 nvim +PlugInstall +qall
+echo "eco solarized" >> ~/.radare2rc
 
 
 # Install castor

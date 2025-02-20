@@ -20,6 +20,16 @@
 
 ---
 
+### Fix color and error for exegol, tmux, nvim
+* Add following lines for fixing colors in exegol tmux and nvim
+
+``` bash
+set-option -sg escape-time 10
+set-option -g focus-events on
+set-option -g default-terminal 'tmux-256color'
+set -as terminal-overrides ",xterm*:Tc"
+```
+
 ### Firefox config
 
 * copy userChrome.css dans .mozilla/firefox/6m20r5va.default-esr/chrome/userChrome.css

@@ -18,3 +18,18 @@ The `/opt/my-resources/setup/load_user_setup.sh` script is executed on the first
 Arbitrary code can be added in this file, in order to customize Exegol (dependency installation, configuration file copy, etc).
 It is strongly advised **not** to overwrite the configuration files provided by exegol (e.g. /root/.zshrc, /opt/.exegol_aliases, ...), official updates will not be applied otherwise.
 
+## Fix color and error for exegol, tmux, nvim
+* Add following lines for fixing colors in exegol tmux and nvim
+
+``` bash
+set-option -sg escape-time 10
+set-option -g focus-events on
+set-option -g default-terminal 'tmux-256color'
+set -as terminal-overrides ",xterm*:Tc"
+```
+
+## Change theme for radare2
+
+```
+echo "eco solarized" >> ~/.radare2rc
+```
