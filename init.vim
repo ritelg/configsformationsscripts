@@ -3,6 +3,7 @@
 " https://github.com/getCodingKnowledge/config-neovim-wind10/tree/1a857a25bc724fddab54689b93ac893e958fd16e
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/general/settings.vim
+source $HOME/.config/nvim/general/command.vim
 "source $HOME/.config/nvim/general/vim-rooter-settings.vim Fait bugger neovim
 source $HOME/.config/nvim/keys/mappings.vim
 
