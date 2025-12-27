@@ -1,3 +1,4 @@
+
 ; Doc: https://github.com/jaagr/polybar
 ; Wiki: https://github.com/jaagr/polybar/wiki
 
@@ -23,9 +24,11 @@ line-size = 3
 line-color = #f00
 
 
-font-0 = System San Francisco Display:size=10;2
-font-1 = FontAwesome:size=11;3
-font-2 = MaterialIcons:size=11;4
+; font-0 = System San Francisco Display:size=14;2
+font-0 = JetBrainsMono Nerd Font:size=12;3
+font-1 = Symbols Nerd Font Mono:size=18;4
+font-2 = FontAwesome:size=11;3
+font-3 = MaterialIcons:size=11;4
 
 padding-left = 0
 padding-right = 3
@@ -34,7 +37,7 @@ module-margin = 2
 
 [bar/left]
 inherit = bar/default
-monitor = HDMI-1
+monitor = eDP-1
 modules-left = i3
 modules-center =;
 modules-right = cpu memory volume date powermenu wired
@@ -44,8 +47,13 @@ inherit = bar/default
 monitor = LVDS-1
 modules-left = i3
 modules-center =
-modules-right = cpu memory volume date powermenu 
+modules-right = tray cpu memory volume date powermenu 
 
+[module/tray]
+type = internal/tray
+tray-size = 70%          ; Optionnel : pourcentage de la barre pour le tray
+tray-padding = 5
+tray-background = #000000  ; Adaptez à votre thème
 
 [module/i3]
 type = internal/i3
