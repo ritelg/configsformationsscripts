@@ -7,6 +7,30 @@ DEFAULT="\033[0m"
 
 USER="ritelg"
 
+function install_nvm {
+  echo -e "\n $GRAS $BLEU $PREFIX_STRING Installation de NVM, NodeJs, Pnpm pour Root $PREFIX_STRING $RESET \n"
+
+  if [[ ! -d "/root/.nvm" ]]; then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    echo -e "\n\n"
+  fi  
+
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/root/.nvm/nvm.sh" ] && \. "/root/.nvm/nvm.sh"
+
+  nvm install --lts
+  nvm use --lts
+  npm i -g pnpm yarn neovim
+
+  echo -e "\n $GRAS $BLEU $PREFIX_STRING Installation de NVM, NodeJs, Pnpm pour ritelg $PREFIX_STRING $RESET \n"
+
+  if [[ ! -d "/home/$CURRENT_USER/.nvm" ]]; then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | sudo -u $CURRENT_USER bash
+    echo -e "\n\n"
+  fi
+  sudo -u ritelg bash -c 'export NVM_DIR="/home/ritelg/.nvm"; [ -s "/home/ritelg/.nvm/nvm.sh" ] && . "/home/ritelg/.nvm/nvm.sh" && nvm install --lts && nvm use --lts && npm i -g pnpm yarn neovim'
+}
+
 install_docker (){
 	echo -e "${VERT}Installation de docker${DEFAULT}"
 	file="/etc/apt/keyrings/docker.asc"
@@ -48,11 +72,47 @@ install_i3(){
 	echo -e "${VERT}Installation de I3 !${DEFAULT}"
 	sudo apt install i3 rofi compton polybar
 }
+
+apt-get install --no-install-recommends -y software-properties-common
+apt-add-repository ppa:ansible/ansible 
 sudo apt update
 sudo apt upgrade 
 echo -e "${VERT}Installation du système ! ${DEFAULT}"
-sudo apt install -y git zsh i3 rofi compton ranger polybar ca-certificates curl tmux ripgrep python3-pynvim ruby-full maim xdotool xclip network-manager-applet pipx tig
+sudo apt install -y git zsh i3 rofi compton ranger polybar ca-certificates curl tmux ripgrep python3-pynvim ruby-full maim xdotool xclip network-manager-applet pipx tig rsync make ffmpeg htop papirus-icon-theme
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+sudo apt-get install -y  python3-pip python3-yaml python3-jinja2 python3-httplib2 python3-paramiko python3-pkg-resources ansible
 
+if [[ ! -f "/home/$USER/.tigrc" ]]; then 
+  curl -o "/home/$USER/.tigrc"  https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/.tigrc
+else  
+  echo -e "${ORANGE}Il y a déjà la config pour TIG${DEFAULT}"
+fi
+
+if [[ ! -d "/home/$USER/.config/rofi/themes" ]]; then
+  mkdir -p "/home/$USER/.config/rofi"
+  git clone https://github.com/Murzchnvok/rofi-collection ~/.config/rofi/themes
+  curl -o  "/home/$USER/.config/rofi/config.rasi" https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/rofi/config.rasi
+else  
+  echo -e "${ORANGE}Il y a déjà la config pour rofi${DEFAULT}"
+fi
+
+if [[ ! -f "/home/$USER/.Xresources" ]]; then 
+  curl -o "/home/$USER/.Xresources"  https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/.Xresources
+else  
+  echo -e "${ORANGE}Il y a déjà la config pour Xresources${DEFAULT}"
+fi
+
+if [[ ! -f "/home/$USER/.gitconfig" ]]; then 
+  curl -o "/home/$USER/.gitconfig"  https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/.gitconfig
+else  
+  echo -e "${ORANGE}Il y a déjà la config pour Xresources${DEFAULT}"
+fi
+
+if [[ ! -f "/home/$USER/.config/gtk-3.0/gtk.css" ]]; then 
+  curl -o "/home/$USER/.config/gtk-3.0/gtk.css" https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/gtk3.0/gtk.css
+else  
+  echo -e "${ORANGE}Le fichier gtk.css est déjà present${DEFAULT}"
+fi
 
 
 if [[ ! -d "/home/$USER/.tmux/plugins/tpm/" ]]; then
@@ -147,14 +207,15 @@ fi
 
 install_docker
 install_i3
+# install_nvm
 
 echo -e "${VERT}Installation de Exegol ! ${DEFAULT}"
 pipx install exegol
-echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
+# echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
 pipx install argcomplete
 # Enable compinit if not already enabled
-echo "autoload -U compinit && compinit" >> ~/.zshrc
+# echo "autoload -U compinit && compinit" >> ~/.zshrc
 # Add Exegol completion
-echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
+# echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
 pipx ensurepath
 
