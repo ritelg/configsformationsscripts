@@ -32,6 +32,10 @@ function install_nvm {
 }
 
 install_docker (){
+  if command -v docker >/dev/null 2>&1; then
+      echo -e "${ORANGE}Docker est déjà installé${DEFAULT}"
+      return
+  fi
 	echo -e "${VERT}Installation de docker${DEFAULT}"
 	file="/etc/apt/keyrings/docker.asc"
 	echo -e "${VERT}Ajout de la clé pour docker${DEFAULT}"
@@ -64,21 +68,65 @@ EOF
 
 }
 
+install_exegol() {
+
+  if ! command -v docker >/dev/null 2>&1; then
+      echo -e "${ORANGE}Docker n'est pas installé, redemarer le terminal si premier lancement${DEFAULT}"
+      return
+  fi
+  if command -v exegol >/dev/null 2>&1; then
+      echo -e "${ORANGE}Exegol est déjà installé${DEFAULT}"
+      return
+  fi
+  echo -e "${VERT}Installation de Exegol ! ${DEFAULT}"
+  pipx install exegol
+  # echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
+  pipx install argcomplete
+  # Enable compinit if not already enabled
+  # echo "autoload -U compinit && compinit" >> ~/.zshrc
+  # Add Exegol completion
+  # echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
+  pipx ensurepath
+}
+
+install_github_cli() {
+  if command -v gh >/dev/null 2>&1; then
+      echo -e "${ORANGE}Github cli est déjà installé${DEFAULT}"
+      return
+  fi
+  if [[ ! -f "/etc/apt/sources.list.d/github-cli.list" ]]; then
+    echo -e "${VERT}Ajout des source list pour github cli${DEFAULT}"
+    out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg 
+    cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null 
+    sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg 
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null 
+    sudo apt update
+  else
+    echo -e "${ORANGE}Les source list pour github cli existe${DEFAULT}"
+  fi
+	sudo apt install gh -y
+}
 
 
-echo -e "${VERT}Mise à jour du systéme !${DEFAULT}"
 
 install_i3(){
 	echo -e "${VERT}Installation de I3 !${DEFAULT}"
 	sudo apt install i3 rofi compton polybar
 }
 
+echo -e "${VERT}Mise à jour du systéme !${DEFAULT}"
 apt-get install --no-install-recommends -y software-properties-common
 apt-add-repository ppa:ansible/ansible 
+if [[ ! -f  "/usr/share/keyrings/hashicorp-archive-keyring.gpg" ]]; then
+  wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+fi
+if [[ ! -f "/etc/apt/sources.list.d/hashicorp.list" ]]; then
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+fi
 sudo apt update
 sudo apt upgrade 
 echo -e "${VERT}Installation du système ! ${DEFAULT}"
-sudo apt install -y git zsh i3 rofi compton ranger polybar ca-certificates curl tmux ripgrep python3-pynvim ruby-full maim xdotool xclip network-manager-applet pipx tig rsync make ffmpeg htop papirus-icon-theme
+sudo apt install -y git zsh i3 rofi compton ranger polybar ca-certificates curl tmux ripgrep python3-pynvim ruby-full maim xdotool xclip network-manager-applet pipx tig rsync make ffmpeg htop papirus-icon-theme terraform
 sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
 sudo apt-get install -y  python3-pip python3-yaml python3-jinja2 python3-httplib2 python3-paramiko python3-pkg-resources ansible
 
@@ -201,7 +249,7 @@ else
   echo -e "${ORANGE}JetBrainsMono déjà installé${DEFAULT}"
 fi
 
-if [[ ! -d "/home/$USER/.local/bin/yt-dlp" ]]; then
+if [[ ! -f "/home/$USER/.local/bin/yt-dlp" ]]; then
   echo -e "${VERT}Installation de YT-DLP${DEFAULT}"
   curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
   chmod a+rx ~/.local/bin/yt-dlp 
@@ -215,15 +263,9 @@ fi
 
 install_docker
 install_i3
+install_github_cli
 # install_nvm
+#
+install_exegol
 
-echo -e "${VERT}Installation de Exegol ! ${DEFAULT}"
-pipx install exegol
-# echo "alias exegol='sudo -E $(echo ~/.local/bin/exegol)'" >> ~/.zshrc && source ~/.zshrc
-pipx install argcomplete
-# Enable compinit if not already enabled
-# echo "autoload -U compinit && compinit" >> ~/.zshrc
-# Add Exegol completion
-# echo 'eval "$(register-python-argcomplete --no-defaults exegol)"' >> ~/.zshrc
-pipx ensurepath
 
