@@ -201,6 +201,14 @@ else
   echo -e "${ORANGE}JetBrainsMono déjà installé${DEFAULT}"
 fi
 
+if [[ ! -d "/home/$USER/.local/bin/yt-dlp" ]]; then
+  echo -e "${VERT}Installation de YT-DLP${DEFAULT}"
+  curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
+  chmod a+rx ~/.local/bin/yt-dlp 
+else 
+  echo -e "${ORANGE}YT-DLP déjà installé${DEFAULT}"
+fi
+
 
 
 
