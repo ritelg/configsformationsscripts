@@ -34,7 +34,7 @@ function update_install_base {
 	# apt upgrade -y
 	
 	echo -e "\n $GRAS $BLEU $PREFIX_STRING Installations des paquets de bases $PREFIX_STRING $RESET \n"
-	apt install tig ranger zsh i3 rofi thunar compton tmux vim git curl wget python3-neovim polybar git-flow ripgrep gnupg rsync make ffmpeg htop fd-find silversearcher-ag exuberant-ctags
+	apt install tig ranger zsh i3 rofi thunar compton tmux vim git curl wget python3-neovim polybar git-flow ripgrep gnupg rsync make ffmpeg htop fd-find silversearcher-ag exuberant-ctags libfuse2
 
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
