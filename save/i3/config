@@ -145,6 +145,7 @@ set $terminal gnome-terminal
 
 assign [class="Code"] $ws1
 assign [class="$terminal"] $ws2
+assign [class="Gnome-terminal"] $ws2
 assign [class="Google-chrome"] $ws3
 assign [class="Firefox-esr"] $ws3
 assign [class="zen"] $ws3
@@ -154,6 +155,7 @@ assign [class="discord"] $ws5
 exec --no-startup-id compton
 exec --no-startup-id $terminal
 exec --no-startup-id nm-applet
+exec --no-startup-id /home/ritelg/tools/zen/zen
 
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+o exec rofi -show combi
