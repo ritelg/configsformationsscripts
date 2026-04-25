@@ -48,9 +48,6 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
 # kill focused window
 bindsym $mod+Shift+A kill
 
@@ -140,7 +137,9 @@ workspace $ws6 output $moniteurhdmi
 workspace $ws7 output $moniteurhdmi
 workspace $ws8 output $moniteurhdmi
 
-set $terminal gnome-terminal
+set $terminal /home/ritelg/.local/kitty.app/bin/kitty
+# start a terminal
+bindsym $mod+Return exec $terminal 
 
 
 assign [class="Code"] $ws1
