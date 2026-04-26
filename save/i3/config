@@ -48,6 +48,7 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
+
 # kill focused window
 bindsym $mod+Shift+A kill
 
@@ -124,8 +125,8 @@ set $ws7 7
 set $ws8 8
 set $ws9 9
 set $ws10 0
-set $moniteurprincipale eDP-1
-#set $moniteurhdmi eDP-1 
+set $moniteurprincipale HDMI-1-0 
+set $moniteursecondaire eDP-1
 #set $moniteursecondaire VGA-1
 
 workspace $ws1 output $moniteurprincipale
@@ -133,20 +134,19 @@ workspace $ws2 output $moniteurprincipale
 workspace $ws3 output $moniteurprincipale
 workspace $ws4 output $moniteurprincipale
 workspace $ws5 output $moniteurprincipale
-workspace $ws6 output $moniteurhdmi
-workspace $ws7 output $moniteurhdmi
-workspace $ws8 output $moniteurhdmi
+workspace $ws6 output $moniteursecondaire
+workspace $ws7 output $moniteursecondaire
+workspace $ws8 output $moniteursecondaire
 
 set $terminal /home/ritelg/.local/kitty.app/bin/kitty
 # start a terminal
 bindsym $mod+Return exec $terminal 
 
-
 assign [class="Code"] $ws1
 assign [class="$terminal"] $ws2
 assign [class="Gnome-terminal"] $ws2
 assign [class="Google-chrome"] $ws3
-assign [class="Firefox-esr"] $ws3
+assign [class="firefox-esr"] $ws3
 assign [class="zen"] $ws3
 assign [class="Navigator"] $ws3
 assign [class="discord"] $ws5
@@ -154,7 +154,7 @@ assign [class="discord"] $ws5
 exec --no-startup-id compton
 exec --no-startup-id $terminal
 exec --no-startup-id nm-applet
-exec --no-startup-id /home/ritelg/tools/zen/zen
+exec --no-startup-id firefox
 
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+o exec rofi -show combi
@@ -224,8 +224,9 @@ bindsym $mod+r mode "resize"
 #         status_command i3status
 # }
 
-#exec_always --no-startup-id "killall polybar;polybar -r left & polybar -r right"
-exec_always --no-startup-id "killall polybar;polybar -r left"
+exec_always --no-startup-id "xrandr --output eDP-1 --mode 2560x1600 --output HDMI-1-0 --mode 2560x1440 --right-of HDMI-1-0"
+exec_always --no-startup-id "killall polybar;polybar -r left & polybar -r right"
+# exec_always --no-startup-id "killall polybar;polybar -r left "
 
 ## Screenshots
 # Full screen
@@ -243,4 +244,3 @@ bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewi
 # Selection
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
-# exec_always --no-startup-id "xrandr --output HDMI-1-0 --mode 2560x1440 --output eDP-1 --mode 1920x1200 --right-of HDMI-1-0"

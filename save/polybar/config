@@ -44,7 +44,7 @@ modules-right = cpu memory volume date powermenu wired
 
 [bar/right]
 inherit = bar/default
-monitor = LVDS-1
+monitor = HDMI-1-0
 modules-left = i3
 modules-center =
 modules-right = tray cpu memory volume date powermenu 
