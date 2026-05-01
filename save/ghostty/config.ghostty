@@ -1,0 +1,24 @@
+# --- Apparence ---
+# theme = Catppuccin Mocha
+theme = Duskfox
+#theme = Embark
+background-opacity = 0.94
+window-decoration = false
+
+font-family = Noto Sans Mono
+font-size = 14
+
+window-padding-x = 10
+window-padding-y = 10
+
+# Curseur
+cursor-style = block
+#cursor-blink = true
+
+# --- Comportement ---
+shell-integration = zsh
+copy-on-select = true
+
+# Scroll
+scrollback-limit = 20000
+
