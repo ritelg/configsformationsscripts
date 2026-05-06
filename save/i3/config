@@ -150,6 +150,7 @@ assign [class="Google-chrome"] $ws3
 assign [class="firefox-esr"] $ws3
 assign [class="zen"] $ws3
 assign [class="Navigator"] $ws3
+assign [class="PacketTracer"] $ws4
 assign [class="discord"] $ws5
 
 exec --no-startup-id compton
