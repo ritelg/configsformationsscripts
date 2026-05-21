@@ -28,9 +28,26 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
+# Verrouillage après 40 minutes
+exec_always --no-startup-id xset s 0
+
+# DPMS : Suspend après 50 min → Off après 1h
+exec_always --no-startup-id xset dpms 0 0 0
+
+# Verrouillage écran avec image de fond (i3lock-color)
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/.config/i3/wallpaper/lockscreen.jpg --clock --indicator
+# exec --no-startup-id "xss-lock --transfer-sleep-lock -- i3lock --nofork -i ~/.config/i3/wallpaper/lockscreen.jpg --clock --indicator"
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork \
+#   -i ~/.config/i3/wallpaper/lockscreen.jpg \
+#   --clock \
+#   --indicator \
+#   --pointer=default \
+#   --ignore-escaped \
+#   --timecolor=ffffffff \
+#   --datecolor=ffffffff \
+#   --ringcolor=ffffffaa
+exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l dim
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
@@ -140,7 +157,8 @@ workspace $ws8 output $moniteursecondaire
 
 set $terminal /home/ritelg/.local/kitty.app/bin/kitty
 # start a terminal
-bindsym $mod+Return exec ghostty -e bash -lc 'tmux new -A -s main' 
+# bindsym $mod+Return exec ghostty -e bash -lc 'tmux new -A -s main' 
+bindsym $mod+Return exec ghostty  
 
 assign [class="Code"] $ws1
 assign [class="$terminal"] $ws2
@@ -154,10 +172,12 @@ assign [class="PacketTracer"] $ws4
 assign [class="discord"] $ws5
 
 exec --no-startup-id compton
-exec --no-startup-id ghostty -e bash -lc 'tmux new -A -s main'
+exec --no-startup-id ghostty -e bash -lc 'zellij'
 exec --no-startup-id nm-applet
 exec --no-startup-id firefox
 exec --no-startup-id /home/ritelg/tools/kDrive-3.8.2.6-amd64.AppImage
+# Fond d'écran aléatoire au démarrage
+exec --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpaper/*
 
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+o exec rofi -show combi
@@ -192,7 +212,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Poweroff' 'systemctl poweroff' -B 'Logout' 'i3-msg exit' -B 'Hibernate' 'sudo systemctl hibernate' -B 'Reboot' 'sudo reboot'" 
+bindsym $mod+Shift+e exec "/home/ritelg/.config/rofi/scripts/powermenu.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

@@ -1,0 +1,43 @@
+---
+- name: Créer le dossier rofi tokyonight
+  ansible.builtin.file:
+    path: "/home/{{ user }}/.config/rofi/themes/tokyonight"
+    state: directory
+    mode: "0755"
+  become: true
+  become_user: "{{ user }}"
+
+- name: Créer le fichier .zsh_aliases
+  ansible.builtin.file:
+    path: "/home/{{ user }}/.zsh_aliases"
+    state: touch
+    mode: "0755"
+  become: true
+  become_user: "{{ user }}"
+
+- name: Copy des fichiers
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    mode: "0660"
+    force: true
+  become: true
+  become_user: "{{ user }}"
+  with_items: 
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/.Xresources" 
+      dest: "/home/{{ user }}/.Xresources"
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/.gitconfig"
+      dest: "/home/{{ user }}/.gitconfig"
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/tmux/.tmux.conf"
+      dest: "/home/{{ user }}/.tmux.conf" 
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/tmux/.tmux.conf"
+      dest: "/home/{{ user }}/.tmux.conf"
+    - url: "https://raw.githubusercontent.com/Heus-Sueh/rofi-themes/refs/heads/main/themes/material/colors/tokyonight.rasi"
+      dest: "/home/{{ user }}/.config/rofi/themes/tokyonight/tokyonight.rasi"
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/rofi/config.rasi"
+      dest: "/home/{{ user }}/.config/rofi/config.rasi"
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/polybar/config"
+      dest: "/home/{{ user }}/.config/polybar/config"
+    - url: "https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/save/gtk3.0/gtk.css"
+      dest: "/home/{{ user }}/.config/gtk-3.0/gtk.css"
+

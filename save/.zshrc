@@ -135,3 +135,27 @@ toggle-vi-emacs-mode() {
     EDITOR_MODE="vi"
   fi
 }
+
+eval "$(fzf --zsh)"
+
+# === FZF avec fdfind (Debian/Ubuntu) ===
+export FZF_DEFAULT_COMMAND="fdfind --hidden --strip-cwd-prefix \
+  --exclude .git \
+  --exclude vendor \
+  --exclude node_modules"
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+export FZF_ALT_C_COMMAND="fdfind --type=d --hidden --strip-cwd-prefix \
+  --exclude .git \
+  --exclude vendor \
+  --exclude node_modules"
+
+# Completion avec fdfind
+_fzf_compgen_path() {
+  fdfind --hidden --exclude .git --exclude vendor --exclude node_modules . "$1"
+}
+
+_fzf_compgen_dir() {
+  fdfind --type=d --hidden --exclude .git --exclude vendor --exclude node_modules . "$1"
+}

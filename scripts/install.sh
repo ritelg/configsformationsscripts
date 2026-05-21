@@ -129,6 +129,11 @@ echo -e "${VERT}Installation du système ! ${DEFAULT}"
 sudo apt install -y git zsh i3 rofi compton ranger polybar ca-certificates curl tmux ripgrep python3-pynvim ruby-full maim xdotool xclip network-manager-applet pipx tig rsync make ffmpeg htop papirus-icon-theme terraform
 sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
 sudo apt-get install -y  python3-pip python3-yaml python3-jinja2 python3-httplib2 python3-paramiko python3-pkg-resources ansible
+install_nvm
+config_zsh
+config_nvim
+install_exegol
+#install_kvm
 
 if [[ ! -f "/home/$USER/.tigrc" ]]; then 
   curl -o "/home/$USER/.tigrc"  https://raw.githubusercontent.com/ritelg/configsformationsscripts/refs/heads/master/.tigrc

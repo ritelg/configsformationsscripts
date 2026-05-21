@@ -1,7 +1,7 @@
 # --- Apparence ---
 # theme = Catppuccin Mocha
 theme = Duskfox
-#theme = Embark
+# theme = Embark
 background-opacity = 0.94
 window-decoration = false
 

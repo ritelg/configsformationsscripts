@@ -1,0 +1,14 @@
+---
+- name: Installation du serveur
+  hosts: localhost
+  connection: local
+  become: true
+  vars: 
+    user: ritelg
+    user_home: "/home/ user "
+  tasks:
+  - include_role:
+      name: "{{ item }}"
+    with_items:
+      - init_system
+      - terminal
