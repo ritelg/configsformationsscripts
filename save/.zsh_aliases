@@ -1,1 +1,1 @@
-alias ipa='ip a | awk '\''BEGIN{print "\n"}/^[0-9]+: /{interface=$2}/inet /{print interface" "$2}END{print "\n"} \'''
+alias ipa='ip -br addr show'

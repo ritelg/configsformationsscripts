@@ -179,6 +179,9 @@ exec --no-startup-id /home/ritelg/tools/kDrive-3.8.2.6-amd64.AppImage
 # Fond d'écran aléatoire au démarrage
 exec --no-startup-id feh --randomize --bg-fill ~/.config/i3/wallpaper/*
 
+bindsym $mod+Shift+e exec "/home/ritelg/.config/rofi/scripts/powermenu.sh"
+bindsym $mod+Shift+s exec "/home/ritelg/.config/rofi/scripts/ssh_connexion.sh"
+
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+o exec rofi -show combi
 bindsym $mod+t exec rofi -show run
@@ -212,7 +215,6 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "/home/ritelg/.config/rofi/scripts/powermenu.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
