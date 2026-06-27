@@ -174,4 +174,5 @@ get_ip() {
 }
 
 # Prompt avec hostname + IP
-PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{yellow}[%F{blue}$(get_ip)%F{yellow}]%f %F{green}%~%f %# '
+#PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{yellow}[%F{blue}$(get_ip)%F{yellow}]%f %F{green}%~%f %# '
+PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{yellow}[%F{blue}$(get_ip)%F{yellow}]%f %F{green}${PWD:t}%f %# '
