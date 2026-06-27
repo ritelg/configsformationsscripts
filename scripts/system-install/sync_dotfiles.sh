@@ -9,7 +9,7 @@ if [[ ! -d "$SOURCE_DIR" ]]; then
   exit 1
 fi
 
-DIRECTORIES=("i3" "ghostty" "polybar" "kitty" "ranger" "zellij" "rofi" "betterlockscreen")
+DIRECTORIES=("i3" "ghostty" "polybar" "kitty" "ranger" "zellij" "rofi" "betterlockscreen" "fastfetch")
 
 log_info "Créations des liens symboliques pour les répertoires"
 
