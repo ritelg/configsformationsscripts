@@ -159,3 +159,19 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fdfind --type=d --hidden --exclude .git --exclude vendor --exclude node_modules . "$1"
 }
+fastfetch
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
+#
+# ====================== PROMPT PERSONNALISÉ ======================
+# Fonction pour récupérer l'IP principale
+get_ip() {
+    ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '127.0.0.1' | head -n1
+}
+
+# Prompt avec hostname + IP
+PROMPT='%F{cyan}%n%f@%F{magenta}%m%f %F{yellow}[%F{blue}$(get_ip)%F{yellow}]%f %F{green}%~%f %# '

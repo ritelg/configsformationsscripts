@@ -151,7 +151,7 @@ workspace $ws2 output $moniteurprincipale
 workspace $ws3 output $moniteurprincipale
 workspace $ws4 output $moniteurprincipale
 workspace $ws5 output $moniteurprincipale
-workspace $ws6 output $moniteursecondaire
+workspace $ws6 output $moniteurprincipale
 workspace $ws7 output $moniteursecondaire
 workspace $ws8 output $moniteursecondaire
 
@@ -160,7 +160,8 @@ set $terminal /home/ritelg/.local/kitty.app/bin/kitty
 # bindsym $mod+Return exec ghostty -e bash -lc 'tmux new -A -s main' 
 bindsym $mod+Return exec ghostty  
 
-assign [class="Code"] $ws1
+assign [class="code"] $ws1
+assign [class="pavucontrol"] $ws1
 assign [class="$terminal"] $ws2
 assign [class="ghostty"] $ws2
 assign [class="Gnome-terminal"] $ws2
@@ -169,7 +170,9 @@ assign [class="firefox-esr"] $ws3
 assign [class="zen"] $ws3
 assign [class="Navigator"] $ws3
 assign [class="PacketTracer"] $ws4
-assign [class="discord"] $ws5
+assign [class="TigerVNC Viewer"] $ws4
+assign [class="Virt-manager"] $ws4
+assign [class="discord"] $ws6
 
 exec --no-startup-id compton
 exec --no-startup-id ghostty -e bash -lc 'zellij'
@@ -249,17 +252,20 @@ bindsym $mod+r mode "resize"
 #         status_command i3status
 # }
 
-exec_always --no-startup-id "xrandr --output HDMI-1-0 --mode 2560x1440 --output eDP-1 --mode 2560x1600 --right-of HDMI-1-0"
+
+exec_always --no-startup-id "xrandr --output HDMI-1-0 --mode 2560x1440 --output eDP-1 --mode 1920x1440 --right-of HDMI-1-0"
+# Désactivation de l'ecran du pc portable quand j'en ai pas besoin
+#bindsym $mod+Shift+m exec "xrandr --output eDP-1 --off --output HDMI-1-0 --mode 2560x1440"
 exec_always --no-startup-id "killall polybar;polybar -r left & polybar -r right"
 # exec_always --no-startup-id "killall polybar;polybar -r left "
 
 ## Screenshots
 # Full screen
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym Print exec --no-startup-id maim "/home/$USER/Images/$(date).jpg"
 # Active Window
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Images/$(date).jpg"
 # Selection
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Images/$(date).jpg"
 
 ## Clipboard Screenshots
 # Full screen

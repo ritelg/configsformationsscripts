@@ -1,4 +1,4 @@
-FROM php:8.3
+FROM php:8.4-fpm-bookworm
 
 RUN apt-get update 
 RUN apt-get install -y \
@@ -42,8 +42,8 @@ RUN locale-gen fr_FR.UTF-8
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+# RUN curl -sS https://get.symfony.com/cli/installer | bash
+# RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 # RUN curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install
 # RUN fish install --path=~/.local/share/omf --config=~/.config/omf --noninteractive
@@ -51,6 +51,18 @@ RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN git clone https://github.com/voronkovich/symfony-complete.plugin.zsh ~/.oh-my-zsh/custom/plugins/symfony-complete
 RUN chsh -s $(which zsh)
+
+# Installation de Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Configuration Xdebug (mode debug + profiling)
+RUN echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.log=/tmp/log/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 WORKDIR /var/www
 
