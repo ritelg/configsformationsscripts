@@ -6,4 +6,5 @@ alias eteindre_ecran_pc_portable='xrandr --output HDMI-1-0 --auto --output eDP-1
 alias rallumer_ecran_pc_portable='xrandr --output HDMI-1-0 --auto --output eDP-1 --auto --right-of HDMI-1-0'
 # Allumer la tour
 alias proxmox_wakeup="ssh lenovo-docker 'wakeonlan d8:bb:c1:da:d9:fe'"
-
+alias php="docker run --rm -it ritelg/php:8.4-fpm-user php"
+alias composer="docker run --rm -it ritelg/php:8.4-fpm-user composer"
